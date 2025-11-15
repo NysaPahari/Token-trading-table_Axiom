@@ -54,28 +54,46 @@ export function Header() {
       {/* Tab section with controls */}
       <div className="px-6 py-3 flex items-center gap-4 border-t border-[#1a1f3a]">
         <div className="flex items-center gap-3">
-          <span className="text-white font-medium text-sm">Pulse</span>
-          <button className="p-1 text-gray-400 hover:text-white">≡</button>
-          <button className="p-1 text-gray-400 hover:text-white">📦</button>
+          <span className="text-white font-medium text-base">Pulse</span>
+          {/* Solana logo icon */}
+          <button className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 hover:bg-purple-500/30 transition-colors">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
+              <path d="M2 8L6 6L10 8L6 10L2 8Z" fill="currentColor" opacity="0.6"/>
+              <path d="M2 6L6 4L10 6L6 8L2 6Z" fill="currentColor"/>
+            </svg>
+          </button>
+          {/* Golden cube icon */}
+          <button className="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 hover:bg-yellow-500/30 transition-colors">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M3 2L6 1L9 2V4L6 5L3 4V2Z" fill="currentColor"/>
+              <path d="M3 4L6 5L9 4V6L6 7L3 6V4Z" fill="currentColor" opacity="0.7"/>
+              <path d="M3 6L6 7L9 6V8L6 9L3 8V6Z" fill="currentColor" opacity="0.5"/>
+            </svg>
+          </button>
         </div>
-        <div className="ml-auto flex items-center gap-4">
-          <span className="text-yellow-400 text-sm font-mono">⚡ 0</span>
-          <div className="flex items-center gap-2 text-gray-400 text-xs">
-            <span>≡</span>
-            <span>P1</span>
-            <span>P2</span>
-            <span>P3</span>
-            <span>⇅</span>
-          </div>
-          <div className="flex gap-3 ml-4">
-            <button className="text-gray-400 hover:text-white p-1">📋</button>
-            <button className="text-gray-400 hover:text-white p-1">⊞</button>
-            <button className="text-gray-400 hover:text-white p-1">🔊</button>
-            <button className="text-gray-400 hover:text-white p-1">⚙️</button>
-            <button className="text-gray-400 hover:text-white p-1">📌</button>
-          </div>
-          <span className="text-gray-400 text-sm">1</span>
-          <span className="text-gray-600 cursor-pointer ml-2">▼</span>
+        <div className="ml-auto flex items-center gap-3">
+          <button className="text-gray-400 hover:text-white p-1.5 text-sm">?</button>
+          <button className="flex items-center gap-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded px-3 py-1.5 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
+            <span>☰</span>
+            <span>Display</span>
+            <span>▼</span>
+          </button>
+          <button className="text-gray-400 hover:text-white p-1.5 text-sm">🔖</button>
+          <button className="text-gray-400 hover:text-white p-1.5 text-sm">⌨️</button>
+          <button className="text-gray-400 hover:text-white p-1.5 text-sm">🔊</button>
+          <button className="text-gray-400 hover:text-white p-1.5 text-sm">🎯</button>
+          <button className="flex items-center gap-1.5 bg-[#1a1f3a] border border-[#2a2f4a] rounded px-3 py-1.5 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
+            <span>💼</span>
+            <span>1</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-purple-400">
+              <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
+              <path d="M2 8L6 6L10 8L6 10L2 8Z" fill="currentColor" opacity="0.6"/>
+              <path d="M2 6L6 4L10 6L6 8L2 6Z" fill="currentColor"/>
+            </svg>
+            <span>0</span>
+            <span>▼</span>
+          </button>
         </div>
       </div>
     </header>

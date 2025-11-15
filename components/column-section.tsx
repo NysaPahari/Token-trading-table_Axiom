@@ -88,11 +88,14 @@ export function ColumnSection({
         <div className="flex items-center gap-2">
           <h2 className="text-base font-semibold text-white">{title}</h2>
           <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
+          <div className="flex items-center gap-1 ml-2">
+            <button className="px-2 py-0.5 text-xs font-medium bg-blue-600 text-white rounded">P1</button>
+            <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P2</button>
+            <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P3</button>
+          </div>
         </div>
         <div className="flex items-center gap-1 text-gray-400">
-          <button className="p-1 text-sm hover:text-white transition-colors">≡</button>
           <button className="p-1 text-sm hover:text-white transition-colors">⇅</button>
-          <button className="p-1 text-sm hover:text-white transition-colors">⋮</button>
         </div>
       </div>
 

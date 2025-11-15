@@ -94,13 +94,13 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Label above the box */}
-      {category === 'new-pairs' || category === 'final-stretch' ? (
+      {/* Label above the box - shown on hover */}
+      {isHovered && (category === 'new-pairs' || category === 'final-stretch') && (
         <div className="absolute -top-7 right-0 bg-[#1a1f3a] text-white text-xs font-semibold px-2 py-1 rounded z-20">
           <span className="text-white">{getHoverLabel()}: </span>
           <span className="text-green-400">{getLabelValue()}</span>
         </div>
-      ) : null}
+      )}
 
       <div className="relative z-10">
         {/* Token card with icon on left and all content on right */}
@@ -172,8 +172,9 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               </span>
 
               {(token.hasBadge || category === 'migrated') && (
-                <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors">
-                  0 SOL
+                <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors flex items-center gap-1">
+                  <span className="text-black">⚡</span>
+                  <span>0 SOL</span>
                 </button>
               )}
             </div>
