@@ -75,24 +75,39 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
     return colors[gradient] || 'bg-gray-500'
   }
 
+  const getLabelValue = () => {
+    switch (category) {
+      case 'new-pairs':
+        return '6.44%'
+      case 'final-stretch':
+        return '50%'
+      case 'migrated':
+        return 'Migrated'
+      default:
+        return ''
+    }
+  }
+
   return (
     <div
       className="relative p-3 bg-[#0f1326] hover:bg-[#141928] transition-all duration-150 cursor-pointer overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {isHovered && (
-        <div className="absolute top-2 right-2 bg-green-500/80 text-white text-xs font-semibold px-2 py-1 rounded z-20">
-          {getHoverLabel()}: {category === 'new-pairs' ? '30.69%' : '50%'}
+      {/* Label above the box */}
+      {category === 'new-pairs' || category === 'final-stretch' ? (
+        <div className="absolute -top-7 right-0 bg-[#1a1f3a] text-white text-xs font-semibold px-2 py-1 rounded z-20">
+          <span className="text-white">{getHoverLabel()}: </span>
+          <span className="text-green-400">{getLabelValue()}</span>
         </div>
-      )}
+      ) : null}
 
       <div className="relative z-10">
         {/* Token card with icon on left and all content on right */}
         <div className="flex items-center gap-3">
           {/* Icon with border color */}
           <div
-            className={`w-[72px] h-[72px] flex items-center justify-center text-xl font-bold flex-shrink-0 border-[2px] rounded p-[3px] ${getIconBorderColor()}`}
+            className={`w-[72px] h-[72px] flex items-center justify-center text-xl font-bold flex-shrink-0 border-[1px] rounded p-[3px] ${getIconBorderColor()}`}
           >
             <div className={`w-full h-full flex items-center justify-center rounded ${getIconColor(
               token.gradient
@@ -156,7 +171,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
                 {token.volume > 0 ? '📊' : '○'} {token.volume}%
               </span>
 
-              {token.hasBadge && (
+              {(token.hasBadge || category === 'migrated') && (
                 <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors">
                   0 SOL
                 </button>

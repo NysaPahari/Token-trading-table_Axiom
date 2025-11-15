@@ -48,9 +48,9 @@ export function ColumnSection({
     const animate = () => {
       setShimmerPos(-100)
       
-      // Animate from left to right over 2 seconds
+      // Animate from left to right over 4 seconds (slower)
       const startTime = Date.now()
-      const duration = 2000
+      const duration = 4000
       
       const updatePosition = () => {
         const elapsed = Date.now() - startTime
@@ -86,30 +86,30 @@ export function ColumnSection({
       {/* Column header - sticky */}
       <div className="bg-[#0f1326] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
-          <h2 className="text-sm font-semibold text-white">{title}</h2>
-          <span className="text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
+          <h2 className="text-base font-semibold text-white">{title}</h2>
+          <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
         </div>
         <div className="flex items-center gap-1 text-gray-400">
-          <button className="p-1 text-xs hover:text-white">≡</button>
-          <button className="p-1 text-xs hover:text-white">⇅</button>
-          <button className="p-1 text-xs hover:text-white">⋮</button>
+          <button className="p-1 text-sm hover:text-white transition-colors">≡</button>
+          <button className="p-1 text-sm hover:text-white transition-colors">⇅</button>
+          <button className="p-1 text-sm hover:text-white transition-colors">⋮</button>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar relative">
-        {/* Shimmer overlay on top */}
+        {/* Shimmer overlay on top - more subtle */}
         {isGradientAnimated && (
           <div
             className="absolute inset-0 pointer-events-none z-50"
             style={{
-              backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.15) ${shimmerPos + 10}%, rgba(139, 92, 246, 0.25) ${shimmerPos + 12}%, rgba(139, 92, 246, 0.15) ${shimmerPos + 18}%, transparent ${shimmerPos + 22}%)`,
+              backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.06) ${shimmerPos + 10}%, rgba(139, 92, 246, 0.12) ${shimmerPos + 12}%, rgba(139, 92, 246, 0.06) ${shimmerPos + 18}%, transparent ${shimmerPos + 22}%)`,
               backgroundSize: '100% 100%',
               backgroundPosition: `${shimmerPos}% 0`,
               backgroundRepeat: 'no-repeat',
             }}
           />
         )}
-        <div className="space-y-0 p-3 relative z-10">
+        <div className="space-y-0 p-3 pt-4 relative z-10">
           {tokens.map((token) => (
             <TokenCard key={token.id} token={token} category={category} />
           ))}
