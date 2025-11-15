@@ -217,3 +217,6 @@ export function TokenCard({ token, columnIndex }: TokenCardProps) {
     </div>
   )
 }
+
+// Also export as default for compatibility
+export default TokenCard
