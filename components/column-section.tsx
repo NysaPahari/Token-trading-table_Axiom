@@ -51,9 +51,9 @@ export function ColumnSection({
   }, [isGradientAnimated])
 
   return (
-    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0">
+    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden">
       {/* Column header - sticky */}
-      <div className="bg-[#0a0e27] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between">
+      <div className="bg-[#0f1326] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
           <h2 className="text-sm font-semibold text-white">{title}</h2>
           <span className="text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
