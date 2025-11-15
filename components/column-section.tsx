@@ -98,7 +98,7 @@ export function ColumnSection({
                 <path d="M2 6L6 4L10 6L6 8L2 6Z" fill="currentColor"/>
               </svg>
             </button>
-            <button className="px-2 py-0.5 text-xs font-medium bg-[#0070FF] text-white rounded">P1</button>
+            <button className="px-2 py-0.5 text-xs font-medium bg-[#667AFF] text-white rounded">P1</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P2</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P3</button>
           </div>
