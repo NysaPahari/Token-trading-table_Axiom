@@ -80,10 +80,10 @@ export function Header() {
 
       {/* Tab section with controls */}
         {/* Icon row */}
-        <div className="px-6 py-2 flex items-center gap-3 border-t border-[#1a1f3a] bg-[#000000]">
-          <button className="text-gray-400 hover:text-white text-sm p-1 transition-colors">⚙️</button>
-          <button className="text-gray-400 hover:text-white text-sm p-1 transition-colors">★</button>
-          <button className="text-gray-400 hover:text-white text-sm p-1 transition-colors">📈</button>
+        <div className="px-6 py-1 flex items-center gap-2 border-t border-[#1a1f3a] bg-[#000000]">
+          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">⚙️</button>
+          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">★</button>
+          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">📈</button>
         </div>
 
         {/* Tab section with controls */}
