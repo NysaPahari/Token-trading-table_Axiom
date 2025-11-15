@@ -89,7 +89,7 @@ export function Header() {
         {/* Tab section with controls */}
         <div className="px-6 py-2.5 flex items-center gap-4 border-t border-[#1a1f3a] bg-[#000000]">
         <div className="flex items-center gap-3">
-            <span className="text-white font-medium text-lg">Pulse</span>
+            <span className="text-[#667AFF] font-medium text-lg">Pulse</span>
           {/* Solana logo icon */}
           <button className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 hover:bg-purple-500/30 transition-colors">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -109,10 +109,14 @@ export function Header() {
         </div>
         <div className="ml-auto flex items-center gap-3">
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">?</button>
-          <button className="flex items-center gap-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-3xl px-3 py-1 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
-            <span>☰</span>
-            <span>Display</span>
-            <span>▼</span>
+          <button className="flex items-center gap-2 bg-[#667AFF] border-0 rounded-3xl px-3 py-1 text-black hover:bg-[#667AFF] transition-colors text-sm font-medium">
+            <span>P1</span>
+          </button>
+          <button className="flex items-center gap-2 bg-transparent border border-[#667AFF] rounded-3xl px-3 py-1 text-[#667AFF] hover:bg-[#667AFF]/10 transition-colors text-sm font-medium">
+            <span>P2</span>
+          </button>
+          <button className="flex items-center gap-2 bg-transparent border border-[#667AFF] rounded-3xl px-3 py-1 text-[#667AFF] hover:bg-[#667AFF]/10 transition-colors text-sm font-medium">
+            <span>P3</span>
           </button>
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">🔖</button>
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">⊞</button>
