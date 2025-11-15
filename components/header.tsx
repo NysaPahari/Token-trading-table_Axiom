@@ -3,14 +3,10 @@
 export function Header() {
   return (
     <header className="bg-[#0a0e27] border-b border-[#1a1f3a] sticky top-0 z-50">
-      {/* Main navigation bar */}
-      <div className="px-6 py-3 flex items-center justify-between border-b border-[#1a1f3a]">
-        <div className="flex items-center gap-6">
-          <div className="text-xl font-bold text-white flex items-center gap-2">
-            <span>▲</span>
-            <span>AXIOM Pro</span>
-          </div>
-          <nav className="flex items-center gap-6 ml-4">
+      <div className="px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="text-2xl font-bold text-white">▲ AXIOM Pro</div>
+          <nav className="flex gap-8 ml-12">
             {['Discover', 'Pulse', 'Trackers', 'Perpetuals', 'Yield', 'Vision', 'Portfolio'].map(
               (item) => (
                 <a
@@ -27,60 +23,59 @@ export function Header() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <input
             type="text"
             placeholder="Search by token or CA..."
-            className="bg-[#1a1f3a] border border-[#2a2f4a] rounded px-3 py-1.5 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-48"
+            className="bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg px-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400"
           />
-          <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-gray-400 hover:text-white text-sm border border-[#2a2f4a] rounded">
+          <button className="flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-white text-sm">
             <span>SOL</span>
-            <span className="text-xs">▼</span>
+            <span>▼</span>
           </button>
-          <button className="bg-blue-600 hover:bg-blue-700 px-4 py-1.5 rounded font-medium text-white text-sm transition-colors">
+          <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium text-white transition-colors">
             Deposit
           </button>
-          <button className="text-gray-400 hover:text-white text-lg p-1">★</button>
-          <button className="text-gray-400 hover:text-white text-lg p-1">🔔</button>
-          <div className="flex items-center gap-1.5 text-gray-400 text-xs cursor-pointer px-2">
+          <span className="text-gray-400 cursor-pointer text-lg">★</span>
+          <span className="text-gray-400 cursor-pointer text-lg">🔔</span>
+          <div className="flex items-center gap-2 text-gray-400 text-sm cursor-pointer">
             <span>📊</span>
             <span>0</span>
-            <span className="text-gray-600">0</span>
           </div>
-          <button className="text-gray-400 hover:text-white text-lg p-1">👤</button>
+          <div className="flex items-center gap-2 text-gray-400 text-sm cursor-pointer">
+            <span>💎</span>
+            <span>0</span>
+          </div>
+          <button className="text-gray-400 hover:text-white text-lg">▼</button>
+          <button className="text-gray-400 hover:text-white text-lg">👤</button>
         </div>
       </div>
 
-      {/* Pulse section header */}
-      <div className="px-6 py-2.5 flex items-center justify-between bg-[#0a0e27]">
-        <div className="flex items-center gap-2">
-          <span className="text-white font-medium text-sm">Pulse</span>
-          <button className="p-1 text-gray-400 hover:text-white text-xs">⚡</button>
-          <button className="p-1 text-gray-400 hover:text-white text-xs">📦</button>
-        </div>
+      {/* Tab section with controls */}
+      <div className="px-6 py-3 flex items-center gap-4 border-t border-[#1a1f3a]">
         <div className="flex items-center gap-3">
-          <button className="text-xs text-gray-400 hover:text-white px-2 py-1 border border-[#2a2f4a] rounded">
-            Display
-          </button>
-          <div className="flex items-center gap-1.5">
-            <button className="text-gray-400 hover:text-white p-1 text-sm">⊞</button>
-            <button className="text-gray-400 hover:text-white p-1 text-sm">📋</button>
-            <button className="text-gray-400 hover:text-white p-1 text-sm">🔊</button>
-            <button className="text-gray-400 hover:text-white p-1 text-sm">⚙️</button>
-            <button className="text-gray-400 hover:text-white p-1 text-sm">📌</button>
-          </div>
-          <span className="text-gray-400 text-sm font-mono">1 SOL</span>
-          <div className="flex items-center gap-1 text-gray-400 text-xs ml-2">
-            <span>⚡</span>
-            <span>0</span>
-          </div>
-          <div className="flex items-center gap-1 text-gray-400 text-xs ml-2">
+          <span className="text-white font-medium text-sm">Pulse</span>
+          <button className="p-1 text-gray-400 hover:text-white">≡</button>
+          <button className="p-1 text-gray-400 hover:text-white">📦</button>
+        </div>
+        <div className="ml-auto flex items-center gap-4">
+          <span className="text-yellow-400 text-sm font-mono">⚡ 0</span>
+          <div className="flex items-center gap-2 text-gray-400 text-xs">
             <span>≡</span>
             <span>P1</span>
             <span>P2</span>
             <span>P3</span>
             <span>⇅</span>
           </div>
+          <div className="flex gap-3 ml-4">
+            <button className="text-gray-400 hover:text-white p-1">📋</button>
+            <button className="text-gray-400 hover:text-white p-1">⊞</button>
+            <button className="text-gray-400 hover:text-white p-1">🔊</button>
+            <button className="text-gray-400 hover:text-white p-1">⚙️</button>
+            <button className="text-gray-400 hover:text-white p-1">📌</button>
+          </div>
+          <span className="text-gray-400 text-sm">1</span>
+          <span className="text-gray-600 cursor-pointer ml-2">▼</span>
         </div>
       </div>
     </header>

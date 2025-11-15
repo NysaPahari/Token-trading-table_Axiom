@@ -162,15 +162,47 @@
 }
 
 /* Gradient animation keyframes for Final Stretch column */
-@keyframes gradient-shift {
+@keyframes shimmer {
   0% {
-    background-position: 0% 0;
+    background-position: -100% 0;
+    opacity: 1;
+  }
+  70% {
+    background-position: 200% 0;
+    opacity: 1;
+  }
+  71% {
+    opacity: 0;
+  }
+  85% {
+    opacity: 0;
+  }
+  86% {
+    opacity: 1;
   }
   100% {
-    background-position: 200% 0;
+    background-position: -100% 0;
+    opacity: 1;
   }
 }
 
-.animated-gradient-bg {
-  animation: gradient-shift 4s ease-in-out infinite;
+.animated-gradient-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 20%,
+    rgba(139, 92, 246, 0.25) 50%,
+    transparent 80%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
 }
