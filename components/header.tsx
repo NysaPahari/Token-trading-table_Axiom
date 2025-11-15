@@ -56,7 +56,7 @@ function HeaderComponent() {
           </div>
                     {/* Hamburger icon for mobile */}
                     <div className="md:hidden flex items-center">
-                      <button className="text-white text-2xl px-2 py-1"><span>☰</span></button>
+                      <button className="text-white text-3xl px-2 py-1 ml-2"><span>☰</span></button>
                     </div>
           <button className="flex items-center gap-2 px-3 py-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-3xl text-gray-300 hover:bg-[#2a2f4a] text-sm transition-colors">
             <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-violet-600">
