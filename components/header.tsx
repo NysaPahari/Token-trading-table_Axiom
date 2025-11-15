@@ -31,10 +31,10 @@ function HeaderComponent() {
             </div>
             
             <div className="text-white">
-            <div className="text-white flex flex-col justify-center">
-              <span className="text-lg sm:text-2xl font-normal leading-tight">AXIOM</span>
-              <span className="text-sm sm:text-lg font-normal leading-tight ml-2">Pro</span>
-            </div>
+              <div className="text-white flex flex-col md:flex-row md:items-center md:gap-2 justify-center">
+                <span className="text-lg sm:text-2xl font-normal leading-tight">AXIOM</span>
+                <span className="text-sm sm:text-lg font-normal leading-tight md:ml-2">Pro</span>
+              </div>
             </div>
 
           </div>
