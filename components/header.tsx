@@ -3,11 +3,11 @@
 export function Header() {
   return (
     <header className="bg-[#000000] border-b border-[#1a1f3a] sticky top-0 z-50">
-      <div className="px-6 py-4 flex items-center justify-between">
+      <div className="px-6 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
-              <div className="w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[28px] border-b-white"></div>
+              <div className="w-0 h-0 border-l-[13px] border-l-transparent border-r-[13px] border-r-transparent border-b-[26px] border-b-white"></div>
             </div>
             
             <div className="text-white">
@@ -38,13 +38,13 @@ export function Header() {
             <input
               type="text"
               placeholder="Search by token or CA..."
-              className=" border border-[#2a2f4a] rounded-xl pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-64"
+              className=" border border-[#2a2f4a] rounded-2xl pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-64"
             />
             <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <button className="flex items-center gap-2 px-3 py-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg text-gray-300 hover:bg-[#2a2f4a] text-sm transition-colors">
+          <button className="flex items-center gap-2 px-3 py-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-2xl text-gray-300 hover:bg-[#2a2f4a] text-sm transition-colors">
             <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-violet-600">
               <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
               <path d="M2 8L6 6L10 8L6 10L2 8Z" fill="currentColor" opacity="0.6"/>
@@ -53,7 +53,7 @@ export function Header() {
             <span>SOL</span>
             <span>▼</span>
           </button>
-          <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg font-medium text-white transition-colors">
+          <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-medium text-white transition-colors">
             Deposit
           </button>
           <button className="text-gray-400 hover:text-white text-lg transition-colors">★</button>
@@ -79,9 +79,9 @@ export function Header() {
       </div>
 
       {/* Tab section with controls */}
-      <div className="px-6 py-3 flex items-center gap-4 border-t border-[#1a1f3a] bg-[#000000]">
+      <div className="px-6 py-2 flex items-center gap-4 border-t border-[#1a1f3a] bg-[#000000]">
         <div className="flex items-center gap-3">
-          <span className="text-white font-medium text-base">Pulse</span>
+          <span className="text-white font-medium text-sm">Pulse</span>
           {/* Solana logo icon */}
           <button className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 hover:bg-purple-500/30 transition-colors">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -100,17 +100,17 @@ export function Header() {
           </button>
         </div>
         <div className="ml-auto flex items-center gap-3">
-          <button className="text-gray-400 hover:text-white p-1.5 text-sm transition-colors">?</button>
-          <button className="flex items-center gap-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg px-3 py-1.5 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
+          <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">?</button>
+          <button className="flex items-center gap-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-2xl px-3 py-1 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
             <span>☰</span>
             <span>Display</span>
             <span>▼</span>
           </button>
-          <button className="text-gray-400 hover:text-white p-1.5 text-sm transition-colors">🔖</button>
-          <button className="text-gray-400 hover:text-white p-1.5 text-sm transition-colors">⊞</button>
-          <button className="text-gray-400 hover:text-white p-1.5 text-sm transition-colors">🔊</button>
-          <button className="text-gray-400 hover:text-white p-1.5 text-sm transition-colors">🎯</button>
-          <button className="flex items-center gap-1.5 bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg px-3 py-1.5 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
+          <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">🔖</button>
+          <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">⊞</button>
+          <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">🔊</button>
+          <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">🎯</button>
+          <button className="flex items-center gap-1.5 bg-[#1a1f3a] border border-[#2a2f4a] rounded-2xl px-3 py-1 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
             <span>💼</span>
             <span>1</span>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-purple-400">
