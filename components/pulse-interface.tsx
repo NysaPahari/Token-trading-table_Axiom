@@ -1,34 +1,40 @@
 'use client'
 
+import React from 'react';
 import { Header } from './header'
 import { ColumnSection } from './column-section'
 import { BottomBar } from './bottom-bar'
+import { MobileColumnIndicator } from './mobile-column-indicator'
 import { MOCK_TOKENS } from '../lib/mock-data'
 
 export function PulseInterface() {
+  const containerRef = React.useRef<HTMLDivElement>(null)
+
+  const columns = [
+    { title: 'New Pairs', tokens: MOCK_TOKENS.newPairs, category: 'new-pairs' },
+    { title: 'Final Stretch', tokens: MOCK_TOKENS.finalStretch, category: 'final-stretch', isGradientAnimated: true },
+    { title: 'Migrated', tokens: MOCK_TOKENS.migrated, category: 'migrated' }
+  ]
+
   return (
     <div className="h-screen bg-[#000000] text-white flex flex-col overflow-hidden">
       <Header />
       <div className="px-[0.5cm] py-[0.5cm] flex-1 overflow-hidden min-h-0">
         <div className="w-full h-full bg-[#050810] rounded-lg border border-[#1a1f3a] overflow-hidden flex flex-col">
-          <div className="flex flex-1 overflow-x-auto md:overflow-visible min-h-0 snap-x snap-mandatory">
-            <ColumnSection
-              title="New Pairs"
-              tokens={MOCK_TOKENS.newPairs}
-              category="new-pairs"
-            />
-            <ColumnSection
-              title="Final Stretch"
-              tokens={MOCK_TOKENS.finalStretch}
-              category="final-stretch"
-              isGradientAnimated={true}
-            />
-            <ColumnSection
-              title="Migrated"
-              tokens={MOCK_TOKENS.migrated}
-              category="migrated"
-            />
+            <div ref={containerRef} className="flex flex-1 overflow-x-auto md:overflow-visible min-h-0 snap-x snap-mandatory">
+              {columns.map((col) => (
+                <ColumnSection
+                  key={col.category}
+                  title={col.title}
+                  tokens={col.tokens}
+                  category={col.category as any}
+                  isGradientAnimated={col.isGradientAnimated}
+                />
+              ))}
           </div>
+            <div className="lg:hidden px-4 py-3 border-t border-[#1a1f3a] flex justify-center">
+              <MobileColumnIndicator columns={columns} containerRef={containerRef} />
+            </div>
         </div>
       </div>
       <div className="flex-shrink-0">
