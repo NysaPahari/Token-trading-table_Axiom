@@ -1,6 +1,8 @@
 'use client'
 
-export function Header() {
+import { memo } from 'react'
+
+function HeaderComponent() {
   return (
     <header className="bg-[#000000] sticky top-0 z-50">
       <div className="px-6 py-2.5 flex items-center justify-between border-b border-[#1a1f3a]">
@@ -23,7 +25,7 @@ export function Header() {
                   key={item}
                   href="#"
                   className={`text-sm font-medium transition-colors ${
-                    item === 'Pulse' ? '[#667AFF]' : 'text-white hover:text-white'
+                    item === 'Pulse' ? 'text-[#667AFF]' : 'text-white hover:text-white'
                   }`}
                 >
                   {item}
@@ -139,3 +141,5 @@ export function Header() {
     </header>
   )
 }
+
+export const Header = memo(HeaderComponent)

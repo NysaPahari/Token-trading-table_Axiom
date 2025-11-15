@@ -1,6 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, memo } from 'react'
+import {
+  getIconBorderColor,
+  getHoverLabel,
+  getIconColor,
+  getLabelValue,
+  Category,
+} from '../lib/token-helpers'
 
 interface TokenCardProps {
   token: {
@@ -24,81 +31,28 @@ interface TokenCardProps {
     hasBadge?: boolean
     gradient: string
   }
-  category?: 'new-pairs' | 'final-stretch' | 'migrated'
+  category?: Category
 }
 
-export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
+function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
-  const getIconBorderColor = () => {
-    switch (category) {
-      case 'new-pairs':
-        return 'border-yellow-500'
-      case 'final-stretch':
-        return 'border-green-500'
-      case 'migrated':
-        return 'border-red-500'
-      default:
-        return 'border-gray-500'
-    }
-  }
+  const handleMouseEnter = useCallback(() => setIsHovered(true), [])
+  const handleMouseLeave = useCallback(() => setIsHovered(false), [])
 
-  const getHoverLabel = () => {
-    switch (category) {
-      case 'new-pairs':
-        return 'Bonding'
-      case 'final-stretch':
-        return 'Migrating'
-      case 'migrated':
-        return 'Migrated'
-      default:
-        return ''
-    }
-  }
-
-  const getIconColor = (gradient: string) => {
-    const colors: Record<string, string> = {
-      'from-blue-500 to-blue-600': 'bg-blue-500',
-      'from-purple-400 to-pink-400': 'bg-purple-400',
-      'from-amber-300 to-orange-400': 'bg-yellow-400',
-      'from-green-400 to-emerald-500': 'bg-green-500',
-      'from-yellow-400 to-orange-500': 'bg-yellow-400',
-      'from-cyan-400 to-blue-500': 'bg-cyan-400',
-      'from-lime-300 to-green-500': 'bg-lime-400',
-      'from-pink-400 to-rose-500': 'bg-pink-400',
-      'from-slate-400 to-slate-600': 'bg-gray-500',
-      'from-red-400 to-red-600': 'bg-red-500',
-      'from-red-500 to-orange-600': 'bg-red-500',
-      'from-orange-400 to-amber-500': 'bg-orange-400',
-      'from-yellow-500 to-yellow-600': 'bg-yellow-500',
-    }
-    return colors[gradient] || 'bg-gray-500'
-  }
-
-  const getLabelValue = () => {
-    switch (category) {
-      case 'new-pairs':
-        return '6.44%'
-      case 'final-stretch':
-        return '50%'
-      case 'migrated':
-        return 'Migrated'
-      default:
-        return ''
-    }
-  }
+  // helper functions moved to lib/token-helpers.ts
 
   return (
     <div
       className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-hidden"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Label above the box - shown on hover */}
       {isHovered && (category === 'new-pairs' || category === 'final-stretch') && (
         <div className="absolute -top-8 right-0 bg-[#1a1f3a] border border-[#2a2f4a] text-white text-xs font-semibold px-2 py-1 rounded-lg z-50 pointer-events-none">
-          <span className="text-white">{getHoverLabel()}: </span>
-          <span className="text-green-400">{getLabelValue()}</span>
+          <span className="text-white">{getHoverLabel(category)}: </span>
+          <span className="text-green-400">{getLabelValue(category)}</span>
         </div>
       )}
 
@@ -107,7 +61,9 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
         <div className="flex items-center gap-3">
           {/* Icon with border color */}
           <div
-            className={`w-[72px] h-[72px] flex items-center justify-center text-xl font-bold flex-shrink-0 border-[1px] rounded p-[3px] ${getIconBorderColor()}`}
+            className={`w-[72px] h-[72px] flex items-center justify-center text-xl font-bold flex-shrink-0 border-[1px] rounded p-[3px] ${getIconBorderColor(
+                category
+              )}`}
           >
             <div className={`w-full h-full flex items-center justify-center rounded ${getIconColor(
               token.gradient
@@ -200,3 +156,5 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
     </div>
   )
 }
+
+export const TokenCard = memo(TokenCardComponent)

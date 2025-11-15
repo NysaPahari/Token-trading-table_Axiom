@@ -1,7 +1,7 @@
 'use client'
 
 import { TokenCard } from './token-card'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 
 interface Token {
   id: string
@@ -32,7 +32,7 @@ interface ColumnSectionProps {
   isGradientAnimated?: boolean
 }
 
-export function ColumnSection({
+function ColumnSectionComponent({
   title,
   tokens,
   category,
@@ -82,7 +82,7 @@ export function ColumnSection({
   }, [isGradientAnimated])
 
   return (
-    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden relative">
+    <div className="flex-shrink-0 w-full md:w-1/3 h-full flex flex-col md:border-r border-[#1a1f3a] last:md:border-r-0 overflow-hidden relative snap-start">
       {/* Column header - sticky */}
       <div className="bg-[#050810] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
@@ -128,3 +128,5 @@ export function ColumnSection({
     </div>
   )
 }
+
+export const ColumnSection = memo(ColumnSectionComponent)
