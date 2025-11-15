@@ -84,13 +84,20 @@ export function ColumnSection({
   return (
     <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden relative">
       {/* Column header - sticky */}
-      <div className="bg-[#0a0e1f] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
+      <div className="bg-[#050810] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
           <h2 className="text-base font-semibold text-white">{title}</h2>
           <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1">
+            <button className="w-5 h-5 rounded flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
+                <path d="M2 8L6 6L10 8L6 10L2 8Z" fill="currentColor" opacity="0.6"/>
+                <path d="M2 6L6 4L10 6L6 8L2 6Z" fill="currentColor"/>
+              </svg>
+            </button>
             <button className="px-2 py-0.5 text-xs font-medium bg-blue-600 text-white rounded">P1</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P2</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P3</button>

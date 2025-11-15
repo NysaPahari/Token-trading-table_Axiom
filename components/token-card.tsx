@@ -90,13 +90,13 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
 
   return (
     <div
-      className="relative p-2.5 bg-[#0a0e1f] hover:bg-[#0f1326] transition-all duration-150 cursor-pointer overflow-hidden"
+      className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Label above the box - shown on hover */}
       {isHovered && (category === 'new-pairs' || category === 'final-stretch') && (
-        <div className="absolute -top-7 right-0 bg-[#1a1f3a] text-white text-xs font-semibold px-2 py-1 rounded z-20">
+        <div className="absolute -top-7 right-0 bg-[#1a1f3a] text-white text-xs font-semibold px-2 py-1 rounded-lg z-20">
           <span className="text-white">{getHoverLabel()}: </span>
           <span className="text-green-400">{getLabelValue()}</span>
         </div>

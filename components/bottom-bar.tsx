@@ -2,7 +2,7 @@
 
 export function BottomBar() {
   return (
-    <div className="w-full bg-[#050810] border-t border-[#1a1f3a] px-4 py-2 flex items-center justify-between text-xs text-gray-400">
+    <div className="w-full bg-[#000000] border-t border-[#1a1f3a] px-4 py-2 flex items-center justify-between text-xs text-gray-400">
       <div className="flex items-center gap-4">
         <span className="text-white font-semibold">PRESET 1</span>
         <a href="#" className="hover:text-white transition-colors">Wallet</a>
