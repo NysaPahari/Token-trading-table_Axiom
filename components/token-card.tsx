@@ -44,7 +44,7 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
 
   return (
     <div
-      className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-hidden"
+      className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-visible"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
