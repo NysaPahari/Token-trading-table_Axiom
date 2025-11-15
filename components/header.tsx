@@ -2,7 +2,7 @@
 
 export function Header() {
   return (
-    <header className="bg-[#0a0e27] border-b border-[#1a1f3a] sticky top-0 z-50">
+    <header className="bg-[#050810] border-b border-[#1a1f3a] sticky top-0 z-50">
       <div className="px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="text-2xl font-bold text-white">▲ AXIOM Pro</div>

@@ -84,18 +84,18 @@ export function ColumnSection({
   return (
     <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden relative">
       {/* Column header - sticky */}
-      <div className="bg-[#0f1326] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
+      <div className="bg-[#0a0e1f] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
           <h2 className="text-base font-semibold text-white">{title}</h2>
           <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
-          <div className="flex items-center gap-1 ml-2">
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <button className="px-2 py-0.5 text-xs font-medium bg-blue-600 text-white rounded">P1</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P2</button>
             <button className="px-2 py-0.5 text-xs font-medium text-white hover:bg-[#1a1f3a] rounded transition-colors">P3</button>
           </div>
-        </div>
-        <div className="flex items-center gap-1 text-gray-400">
-          <button className="p-1 text-sm hover:text-white transition-colors">⇅</button>
+          <button className="p-1 text-sm hover:text-white transition-colors text-gray-400">⇅</button>
         </div>
       </div>
 

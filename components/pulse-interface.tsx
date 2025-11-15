@@ -703,10 +703,10 @@ const MOCK_TOKENS = {
 
 export function PulseInterface() {
   return (
-    <div className="h-screen bg-[#0a0e27] text-white flex flex-col overflow-hidden">
+    <div className="h-screen bg-[#050810] text-white flex flex-col overflow-hidden">
       <Header />
       <div className="px-[0.5cm] py-[0.5cm] flex-1 overflow-hidden min-h-0">
-        <div className="w-full h-full bg-[#0f1326] rounded-lg border border-[#1a1f3a] overflow-hidden flex flex-col">
+        <div className="w-full h-full bg-[#0a0e1f] rounded-lg border border-[#1a1f3a] overflow-hidden flex flex-col">
           <div className="flex flex-1 overflow-hidden min-h-0">
             <ColumnSection
               title="New Pairs"

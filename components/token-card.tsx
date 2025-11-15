@@ -90,7 +90,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
 
   return (
     <div
-      className="relative p-3 bg-[#0f1326] hover:bg-[#141928] transition-all duration-150 cursor-pointer overflow-hidden"
+      className="relative p-2.5 bg-[#0a0e1f] hover:bg-[#0f1326] transition-all duration-150 cursor-pointer overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -172,9 +172,9 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               </span>
 
               {(token.hasBadge || category === 'migrated') && (
-                <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors flex items-center gap-1">
+                <button className="ml-auto bg-blue-600 text-black text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
                   <span className="text-black">⚡</span>
-                  <span>0 SOL</span>
+                  <span className="text-black">0 SOL</span>
                 </button>
               )}
             </div>
