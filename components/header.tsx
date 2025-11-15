@@ -23,7 +23,7 @@ export function Header() {
                   key={item}
                   href="#"
                   className={`text-sm font-medium transition-colors ${
-                    item === 'Pulse' ? 'text-purple-400' : 'text-gray-400 hover:text-white'
+                    item === 'Pulse' ? 'text-violet-600' : 'text-gray-400 hover:text-white'
                   }`}
                 >
                   {item}
