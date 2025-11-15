@@ -80,16 +80,16 @@ export function Header() {
 
       {/* Tab section with controls */}
         {/* Icon row */}
-        <div className="px-6 py-1 flex items-center gap-2 border-t border-[#1a1f3a] bg-[#000000]">
-          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">⚙️</button>
-          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">★</button>
-          <button className="text-gray-400 hover:text-white text-xs p-1/2 transition-colors">📈</button>
+        <div className="px-6 py-1 flex items-center gap-2 bg-[#000000]">
+          <button className="text-white hover:text-white text-xs p-1 transition-colors">⚙️</button>
+          <button className="text-white hover:text-white text-xs p-1 transition-colors">★</button>
+          <button className="text-white hover:text-white text-xs p-1 transition-colors">📈</button>
         </div>
 
         {/* Tab section with controls */}
-        <div className="px-6 py-2.5 flex items-center gap-4 border-t border-[#1a1f3a] bg-[#000000]">
+        <div className="px-6 py-2.5 flex items-center gap-4 bg-[#000000]">
         <div className="flex items-center gap-3">
-            <span className="text-[#667AFF] font-medium text-lg">Pulse</span>
+          <span className="text-white font-medium text-lg">Pulse</span>
           {/* Solana logo icon */}
           <button className="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 hover:bg-purple-500/30 transition-colors">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
