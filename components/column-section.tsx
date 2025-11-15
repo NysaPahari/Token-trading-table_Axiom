@@ -23,69 +23,107 @@ interface Token {
   tx: string
   hasBadge?: boolean
   gradient: string
+  address?: string
 }
 
 interface ColumnSectionProps {
   title: string
   tokens: Token[]
   isGradientAnimated?: boolean
+  columnIndex: number
 }
 
-export function ColumnSection({ title, tokens, isGradientAnimated }: ColumnSectionProps) {
+export function ColumnSection({ title, tokens, isGradientAnimated, columnIndex }: ColumnSectionProps) {
   const [gradientPos, setGradientPos] = useState(0)
+  const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
     if (!isGradientAnimated) return
 
-    const interval = setInterval(() => {
-      setGradientPos((prev) => (prev + 1) % 100)
-    }, 50)
+    let startTime: number | null = null
+    let isPaused = false
+    let pauseStartTime: number | null = null
+    const animationDuration = 2000 // 2 seconds to cross
+    const pauseDuration = 1000 // 1 second pause
 
-    return () => clearInterval(interval)
+    const animate = (currentTime: number) => {
+      if (startTime === null) {
+        startTime = currentTime
+      }
+
+      if (isPaused) {
+        if (pauseStartTime === null) {
+          pauseStartTime = currentTime
+        }
+        if (currentTime - pauseStartTime >= pauseDuration) {
+          // Resume animation
+          isPaused = false
+          pauseStartTime = null
+          startTime = currentTime
+          setIsVisible(true)
+          setGradientPos(0)
+        }
+      } else {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / animationDuration, 1)
+        const newPos = progress * 150 - 50 // Move from -50% to 100%
+
+        if (progress >= 1) {
+          // Animation complete, pause
+          setIsVisible(false)
+          isPaused = true
+          pauseStartTime = currentTime
+          setGradientPos(100)
+        } else {
+          setGradientPos(newPos)
+        }
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    const frameId = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(frameId)
   }, [isGradientAnimated])
 
   return (
-    <div className="flex-shrink-0 w-96 h-full">
-      {/* Column header - sticky */}
-      <div className="bg-[#0f1326] rounded-xl border border-[#1a1f3a] p-4 mb-4 sticky top-[140px] z-40">
-        <div className="flex items-center justify-between mb-3 pb-3 border-b border-[#1a1f3a]">
-          <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
-            <span className="text-xs font-mono text-yellow-400 bg-[#1a1f3a] px-2.5 py-1 rounded-md">
-              ⚡ {tokens.length}
-            </span>
+    <div className="flex flex-col h-full border-r border-[#1a1f3a] last:border-r-0 overflow-hidden">
+      {/* Column header - fixed */}
+      <div className="bg-[#0a0e27] border-b border-[#1a1f3a] px-2 sm:px-4 py-2 sm:py-2.5 flex-shrink-0">
+        <div className="flex items-center justify-between flex-wrap gap-1">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <h2 className="text-xs sm:text-sm font-semibold text-white">{title}</h2>
+            <span className="text-[10px] sm:text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">O</span>
           </div>
-          <div className="flex items-center gap-1">
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ≡
-            </button>
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ⇅
-            </button>
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ⋮
-            </button>
+          <div className="flex items-center gap-1 sm:gap-1.5">
+            <span className="text-[10px] sm:text-xs text-gray-500">P1</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">P2</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">P3</span>
+            <button className="p-0.5 sm:p-1 text-gray-400 hover:text-white text-[10px] sm:text-xs">⇅</button>
           </div>
         </div>
       </div>
 
-      <div
-        className={`space-y-3 pb-4 max-h-[calc(100vh-220px)] overflow-y-auto pr-2 custom-scrollbar ${
-          isGradientAnimated ? 'animated-gradient-bg' : ''
-        }`}
-        style={
-          isGradientAnimated
-            ? {
-                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.05) ${gradientPos}%, transparent 100%)`,
-                backgroundSize: '200% 100%',
-                backgroundPosition: `${gradientPos * 2}% 0`,
-              }
-            : {}
-        }
-      >
-        {tokens.map((token) => (
-          <TokenCard key={token.id} token={token} />
-        ))}
+      {/* Scrollable content area */}
+      <div className="flex-1 overflow-y-auto custom-scrollbar relative">
+        {isGradientAnimated && (
+          <div
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+              background: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.2) 50%, transparent 100%)`,
+              transform: `translateX(${gradientPos}%)`,
+              width: '50%',
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 0.5s ease-in-out',
+            }}
+          />
+        )}
+        <div className="space-y-0">
+          {tokens.map((token) => (
+            <TokenCard key={token.id} token={token} columnIndex={columnIndex} />
+          ))}
+        </div>
       </div>
     </div>
   )
