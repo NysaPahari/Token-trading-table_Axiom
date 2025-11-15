@@ -87,10 +87,10 @@ export function ColumnSection({
       <div className="bg-[#050810] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
           <h2 className="text-base font-semibold text-white">{title}</h2>
-          <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1.5 px-2 py-1 border border-[#2a2f4a] rounded-lg">
+            <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
             <button className="w-5 h-5 rounded flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
                 <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
@@ -119,7 +119,7 @@ export function ColumnSection({
             }}
           />
         )}
-        <div className="space-y-0 p-3 pt-4 relative z-10">
+        <div className="space-y-0 p-3 pt-5 relative z-10">
           {tokens.map((token) => (
             <TokenCard key={token.id} token={token} category={category} />
           ))}

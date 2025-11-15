@@ -96,7 +96,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
     >
       {/* Label above the box - shown on hover */}
       {isHovered && (category === 'new-pairs' || category === 'final-stretch') && (
-        <div className="absolute -top-7 right-0 bg-[#1a1f3a] text-white text-xs font-semibold px-2 py-1 rounded-lg z-20">
+        <div className="absolute -top-8 right-0 bg-[#1a1f3a] border border-[#2a2f4a] text-white text-xs font-semibold px-2 py-1 rounded-lg z-50 pointer-events-none">
           <span className="text-white">{getHoverLabel()}: </span>
           <span className="text-green-400">{getLabelValue()}</span>
         </div>
