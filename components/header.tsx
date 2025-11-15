@@ -1,17 +1,29 @@
-'use client'
+ 'use client'
 
-import { memo } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 
 function HeaderComponent() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [pulseMenuOpen, setPulseMenuOpen] = useState(false)
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null)
+  const pulseMenuRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(e.target as Node)) {
+        setMobileMenuOpen(false)
+      }
+      if (pulseMenuRef.current && !pulseMenuRef.current.contains(e.target as Node)) {
+        setPulseMenuOpen(false)
+      }
+    }
+    document.addEventListener('click', handleClick)
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
+
   return (
     <header className="bg-[#000000] sticky top-0 z-50">
-      {/* Mobile top dots indicator */}
-      <div className="lg:hidden flex justify-center items-center pt-2 pb-1">
-        {[0,1,2].map(idx => (
-          <span key={idx} className={`mx-1 h-2 rounded-full transition-all ${idx === 1 ? 'bg-[#667AFF] w-6' : 'bg-gray-600 w-2'}`}></span>
-        ))}
-      </div>
-      <div className="px-4 py-3 min-h-[56px] flex items-center justify-between border-b border-[#1a1f3a]">
+      <div className="px-4 py-3 min-h-[72px] flex items-center justify-between border-b border-[#1a1f3a]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
@@ -21,7 +33,7 @@ function HeaderComponent() {
             <div className="text-white">
             <div className="text-white flex flex-col justify-center">
               <span className="text-lg sm:text-2xl font-normal leading-tight">AXIOM</span>
-              <span className="text-sm sm:text-lg font-normal leading-tight">Pro</span>
+              <span className="text-sm sm:text-lg font-normal leading-tight ml-2">Pro</span>
             </div>
             </div>
 
