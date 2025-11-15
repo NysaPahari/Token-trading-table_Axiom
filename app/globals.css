@@ -116,9 +116,6 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
@@ -173,4 +170,32 @@
 
 .animated-gradient-bg {
   animation: gradient-shift 4s ease-in-out infinite;
+}
+
+/* Enhanced shimmer gradient animation for Final Stretch column */
+@keyframes shimmer-gradient {
+  0% {
+    background-position: -200% 0;
+    opacity: 0;
+  }
+  50% {
+    background-position: 100% 0;
+    opacity: 1;
+  }
+  100% {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+}
+
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(168, 85, 247, 0.1) 25%,
+    rgba(168, 85, 247, 0.15) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-gradient 3s ease-in-out infinite;
 }
