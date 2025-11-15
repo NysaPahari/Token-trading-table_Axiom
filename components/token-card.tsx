@@ -48,11 +48,14 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Label above the box - shown on hover */}
-      {isHovered && (category === 'new-pairs' || category === 'final-stretch') && (
-        <div className="absolute -top-8 right-0 bg-[#1a1f3a] border border-[#2a2f4a] text-white text-xs font-semibold px-2 py-1 rounded-lg z-50 pointer-events-none">
-          <span className="text-white">{getHoverLabel(category)}: </span>
-          <span className="text-green-400">{getLabelValue(category)}</span>
+      {/* Small label above the box on hover */}
+      {isHovered && (
+        <div
+          className={`absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none rounded px-2 py-0.5 text-xs font-semibold bg-transparent border whitespace-nowrap ${
+            category === 'migrated' ? 'border-green-400 text-green-400' : 'border-red-500 text-red-500'
+          }`}
+        >
+          {category === 'migrated' ? 'Migrating %' : 'Bonding %'}
         </div>
       )}
 
