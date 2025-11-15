@@ -23,7 +23,7 @@ export function Header() {
                   key={item}
                   href="#"
                   className={`text-sm font-medium transition-colors ${
-                    item === 'Pulse' ? 'text-violet-800' : 'text-white hover:text-white'
+                    item === 'Pulse' ? '[#667AFF]' : 'text-white hover:text-white'
                   }`}
                 >
                   {item}
@@ -53,7 +53,7 @@ export function Header() {
             <span>SOL</span>
             <span>▼</span>
           </button>
-          <button className="bg-[#667AFF] hover:bg-[#667AFF] px-6 py-2 rounded-3xl font-medium text-black transition-colors">
+          <button className="bg-[#667AFF] hover:bg-[#295EFF] px-6 py-2 rounded-3xl font-medium text-black transition-colors">
             Deposit
           </button>
           <button className="text-gray-400 hover:text-white text-lg transition-colors">★</button>
@@ -109,14 +109,10 @@ export function Header() {
         </div>
         <div className="ml-auto flex items-center gap-3">
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">?</button>
-          <button className="flex items-center gap-2 bg-[#667AFF] border-0 rounded-3xl px-3 py-1 text-black hover:bg-[#667AFF] transition-colors text-sm font-medium">
-            <span>P1</span>
-          </button>
-          <button className="flex items-center gap-2 bg-transparent border border-[#667AFF] rounded-3xl px-3 py-1 text-[#667AFF] hover:bg-[#667AFF]/10 transition-colors text-sm font-medium">
-            <span>P2</span>
-          </button>
-          <button className="flex items-center gap-2 bg-transparent border border-[#667AFF] rounded-3xl px-3 py-1 text-[#667AFF] hover:bg-[#667AFF]/10 transition-colors text-sm font-medium">
-            <span>P3</span>
+          <button className="flex items-center gap-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-3xl px-3 py-1 text-gray-300 hover:bg-[#2a2f4a] transition-colors text-sm">
+            <span>☰</span>
+            <span className="font-medium">Display</span>
+            <span>▼</span>
           </button>
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">🔖</button>
           <button className="text-gray-400 hover:text-white p-1 text-sm transition-colors">⊞</button>
