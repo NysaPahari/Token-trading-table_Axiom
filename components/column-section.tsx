@@ -38,20 +38,51 @@ export function ColumnSection({
   category,
   isGradientAnimated,
 }: ColumnSectionProps) {
-  const [shimmerPos, setShimmerPos] = useState(0)
+  const [shimmerPos, setShimmerPos] = useState(-100)
 
   useEffect(() => {
     if (!isGradientAnimated) return
 
-    const interval = setInterval(() => {
-      setShimmerPos((prev) => (prev + 0.5) % 200)
-    }, 16)
+    let timeoutId: NodeJS.Timeout
 
-    return () => clearInterval(interval)
+    const animate = () => {
+      setShimmerPos(-100)
+      
+      // Animate from left to right over 2 seconds
+      const startTime = Date.now()
+      const duration = 2000
+      
+      const updatePosition = () => {
+        const elapsed = Date.now() - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        
+        // Move from -100% (off-screen left) to 200% (off-screen right)
+        setShimmerPos(-100 + progress * 300)
+
+        if (progress < 1) {
+          requestAnimationFrame(updatePosition)
+        } else {
+          // Wait a moment then restart
+          timeoutId = setTimeout(() => {
+            animate()
+          }, 100)
+        }
+      }
+      
+      requestAnimationFrame(updatePosition)
+    }
+
+    animate()
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
+    }
   }, [isGradientAnimated])
 
   return (
-    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden">
+    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0 overflow-hidden relative">
       {/* Column header - sticky */}
       <div className="bg-[#0f1326] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-2">
@@ -65,20 +96,20 @@ export function ColumnSection({
         </div>
       </div>
 
-      <div
-        className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar relative"
-        style={
-          isGradientAnimated
-            ? {
-                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.12) ${shimmerPos}%, rgba(139, 92, 246, 0.18) ${shimmerPos + 2}%, rgba(139, 92, 246, 0.12) ${shimmerPos + 8}%, transparent ${shimmerPos + 12}%)`,
-                backgroundSize: '200% 100%',
-                backgroundPosition: `${shimmerPos}% 0`,
-                backgroundRepeat: 'no-repeat',
-              }
-            : {}
-        }
-      >
-        <div className="space-y-0 p-3">
+      <div className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar relative">
+        {/* Shimmer overlay on top */}
+        {isGradientAnimated && (
+          <div
+            className="absolute inset-0 pointer-events-none z-50"
+            style={{
+              backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.15) ${shimmerPos + 10}%, rgba(139, 92, 246, 0.25) ${shimmerPos + 12}%, rgba(139, 92, 246, 0.15) ${shimmerPos + 18}%, transparent ${shimmerPos + 22}%)`,
+              backgroundSize: '100% 100%',
+              backgroundPosition: `${shimmerPos}% 0`,
+              backgroundRepeat: 'no-repeat',
+            }}
+          />
+        )}
+        <div className="space-y-0 p-3 relative z-10">
           {tokens.map((token) => (
             <TokenCard key={token.id} token={token} category={category} />
           ))}

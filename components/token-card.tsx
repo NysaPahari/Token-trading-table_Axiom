@@ -92,7 +92,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
         <div className="flex items-center gap-3">
           {/* Icon with border color */}
           <div
-            className={`w-16 h-16 flex items-center justify-center text-lg font-bold flex-shrink-0 border-2 rounded p-[5px] ${getIconBorderColor()}`}
+            className={`w-[72px] h-[72px] flex items-center justify-center text-xl font-bold flex-shrink-0 border-[2px] rounded p-[3px] ${getIconBorderColor()}`}
           >
             <div className={`w-full h-full flex items-center justify-center rounded ${getIconColor(
               token.gradient

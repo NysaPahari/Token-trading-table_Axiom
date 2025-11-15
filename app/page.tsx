@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0a0e27]">
+    <main className="h-screen bg-[#0a0e27] overflow-hidden">
       <PulseInterface />
     </main>
   )
