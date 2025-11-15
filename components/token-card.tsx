@@ -172,7 +172,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               </span>
 
               {(token.hasBadge || category === 'migrated' || category === 'new-pairs') && (
-                <button className="ml-auto bg-blue-600 text-black text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
+                <button className="ml-auto bg-[#0070FF] text-black text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
                   <span className="text-black">⚡</span>
                   <span className="text-black">0 SOL</span>
                 </button>
@@ -193,7 +193,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               </svg>
             </div>
           ) : (
-            <div className="bg-blue-600 text-white px-2 py-1 rounded-full flex items-center gap-2 text-xs shadow-sm">
+            <div className="bg-[#0070FF] text-white px-2 py-1 rounded-full flex items-center gap-2 text-xs shadow-sm">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-white">
                 <path d="M12 2C12 2 14 4 16 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <circle cx="12" cy="12" r="3" stroke="white" strokeWidth="1.5"/>

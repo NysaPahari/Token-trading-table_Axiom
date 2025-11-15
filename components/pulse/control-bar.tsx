@@ -69,7 +69,7 @@ export const ControlBar = memo(function ControlBar({
             onClick={() => onDisplayChange('grid')}
             className={`px-3 py-1 text-sm rounded transition-colors ${
               displayMode === 'grid'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-[#0070FF] text-white'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -79,7 +79,7 @@ export const ControlBar = memo(function ControlBar({
             onClick={() => onDisplayChange('list')}
             className={`px-3 py-1 text-sm rounded transition-colors ${
               displayMode === 'list'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-[#0070FF] text-white'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
