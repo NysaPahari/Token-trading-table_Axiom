@@ -22,7 +22,9 @@ export function Header() {
                 <a
                   key={item}
                   href="#"
-                  className="text-sm font-medium text-white"
+                  className={`text-sm font-medium transition-colors ${
+                    item === 'Pulse' ? 'text-violet-800' : 'text-gray-400 hover:text-white'
+                  }`}
                 >
                   {item}
                 </a>
@@ -51,7 +53,7 @@ export function Header() {
             <span>SOL</span>
             <span>▼</span>
           </button>
-          <button className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-medium text-white transition-colors">
+          <button className="bg-violet-800 hover:bg-blue-700 px-6 py-2 rounded-2xl font-medium text-black transition-colors">
             Deposit
           </button>
           <button className="text-gray-400 hover:text-white text-lg transition-colors">★</button>

@@ -171,7 +171,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
                 {token.volume > 0 ? '📊' : '○'} {token.volume}%
               </span>
 
-              {(token.hasBadge || category === 'migrated') && (
+              {(token.hasBadge || category === 'migrated' || category === 'new-pairs') && (
                 <button className="ml-auto bg-blue-600 text-black text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
                   <span className="text-black">⚡</span>
                   <span className="text-black">0 SOL</span>
@@ -181,6 +181,28 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
           </div>
         </div>
       </div>
+      {/* Corner icon for final-stretch column (pic1 -> pic2 on hover) */}
+      {category === 'final-stretch' && (
+        <div className="absolute bottom-2 right-2 z-20">
+          {!isHovered ? (
+            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-pink-500 to-yellow-400 p-0.5 shadow-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-white">
+                <circle cx="12" cy="12" r="6" fill="rgba(0,0,0,0.12)" />
+                <path d="M8 8L16 8" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.9" />
+                <path d="M8 11L16 11" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.6" />
+              </svg>
+            </div>
+          ) : (
+            <div className="bg-blue-600 text-white px-2 py-1 rounded-full flex items-center gap-2 text-xs shadow-sm">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="text-white">
+                <path d="M12 2C12 2 14 4 16 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <circle cx="12" cy="12" r="3" stroke="white" strokeWidth="1.5"/>
+              </svg>
+              <span>0 SOL</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
