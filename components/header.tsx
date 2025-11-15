@@ -6,8 +6,8 @@ export function Header() {
       <div className="px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 flex items-center justify-center">
-              <div className="w-0 h-0 border-l-[12px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
+            <div className="flex items-center justify-center">
+              <div className="w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-b-[28px] border-b-white"></div>
             </div>
             
             <div className="text-white">
@@ -45,7 +45,7 @@ export function Header() {
             </svg>
           </div>
           <button className="flex items-center gap-2 px-3 py-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg text-gray-300 hover:bg-[#2a2f4a] text-sm transition-colors">
-            <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-purple-400">
+            <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-violet-600">
               <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
               <path d="M2 8L6 6L10 8L6 10L2 8Z" fill="currentColor" opacity="0.6"/>
               <path d="M2 6L6 4L10 6L6 8L2 6Z" fill="currentColor"/>
