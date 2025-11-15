@@ -116,6 +116,9 @@
 }
 
 @layer base {
+  * {
+    @apply border-border;
+  }
   body {
     @apply bg-background text-foreground;
   }
@@ -172,30 +175,16 @@
   animation: gradient-shift 4s ease-in-out infinite;
 }
 
-/* Enhanced shimmer gradient animation for Final Stretch column */
-@keyframes shimmer-gradient {
+/* Updated shimmer animation for Final Stretch */
+@keyframes shimmer {
   0% {
-    background-position: -200% 0;
-    opacity: 0;
-  }
-  50% {
-    background-position: 100% 0;
-    opacity: 1;
+    background-position: -1000px 0;
   }
   100% {
-    background-position: 200% 0;
-    opacity: 0;
+    background-position: 1000px 0;
   }
 }
 
-.shimmer-bg {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(168, 85, 247, 0.1) 25%,
-    rgba(168, 85, 247, 0.15) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer-gradient 3s ease-in-out infinite;
+.shimmer-animate {
+  animation: shimmer 3s infinite;
 }

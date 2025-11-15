@@ -28,64 +28,61 @@ interface Token {
 interface ColumnSectionProps {
   title: string
   tokens: Token[]
+  category: 'new-pairs' | 'final-stretch' | 'migrated'
   isGradientAnimated?: boolean
 }
 
-export function ColumnSection({ title, tokens, isGradientAnimated }: ColumnSectionProps) {
-  const [gradientPos, setGradientPos] = useState(0)
+export function ColumnSection({
+  title,
+  tokens,
+  category,
+  isGradientAnimated,
+}: ColumnSectionProps) {
+  const [shimmerPos, setShimmerPos] = useState(0)
 
   useEffect(() => {
     if (!isGradientAnimated) return
 
     const interval = setInterval(() => {
-      setGradientPos((prev) => (prev + 1) % 100)
-    }, 50)
+      setShimmerPos((prev) => (prev + 1) % 100)
+    }, 30)
 
     return () => clearInterval(interval)
   }, [isGradientAnimated])
 
   return (
-    <div className="flex-shrink-0 w-96 h-full">
+    <div className="flex-shrink-0 w-1/3 h-full flex flex-col border-r border-[#1a1f3a] last:border-r-0">
       {/* Column header - sticky */}
-      <div className="bg-[#0f1326] rounded-xl border border-[#1a1f3a] p-4 mb-4 sticky top-[140px] z-40">
-        <div className="flex items-center justify-between mb-3 pb-3 border-b border-[#1a1f3a]">
-          <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold text-white">{title}</h2>
-            <span className="text-xs font-mono text-yellow-400 bg-[#1a1f3a] px-2.5 py-1 rounded-md">
-              ⚡ {tokens.length}
-            </span>
-          </div>
-          <div className="flex items-center gap-1">
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ≡
-            </button>
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ⇅
-            </button>
-            <button className="p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1f3a] rounded transition-colors">
-              ⋮
-            </button>
-          </div>
+      <div className="bg-[#0a0e27] border-b border-[#1a1f3a] p-3 sticky top-0 z-40 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-white">{title}</h2>
+          <span className="text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
+        </div>
+        <div className="flex items-center gap-1 text-gray-400">
+          <button className="p-1 text-xs hover:text-white">≡</button>
+          <button className="p-1 text-xs hover:text-white">⇅</button>
+          <button className="p-1 text-xs hover:text-white">⋮</button>
         </div>
       </div>
 
       <div
-        className={`space-y-3 pb-4 max-h-[calc(100vh-220px)] overflow-y-auto pr-2 custom-scrollbar ${
-          isGradientAnimated ? 'animated-gradient-bg' : ''
-        }`}
+        className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar"
         style={
           isGradientAnimated
             ? {
-                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.05) ${gradientPos}%, transparent 100%)`,
-                backgroundSize: '200% 100%',
-                backgroundPosition: `${gradientPos * 2}% 0`,
+                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.08) ${shimmerPos}%, transparent ${shimmerPos + 20}%)`,
+                backgroundSize: '100% 100%',
+                backgroundPosition: '0 0',
+                backgroundAttachment: 'scroll',
               }
             : {}
         }
       >
-        {tokens.map((token) => (
-          <TokenCard key={token.id} token={token} />
-        ))}
+        <div className="space-y-0 p-3">
+          {tokens.map((token) => (
+            <TokenCard key={token.id} token={token} category={category} />
+          ))}
+        </div>
       </div>
     </div>
   )

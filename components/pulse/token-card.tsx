@@ -5,19 +5,14 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 import { selectToken } from '@/store/slices/ui-slice'
 import { Token } from '@/store/slices/token-slice'
+import { TokenTooltip } from './token-tooltip'
 import { TokenPopover } from './token-popover'
 
 interface TokenCardProps {
   token: Token
-  borderColor: string
-  category: string
 }
 
-export const TokenCard = memo(function TokenCard({ 
-  token, 
-  borderColor,
-  category 
-}: TokenCardProps) {
+export const TokenCard = memo(function TokenCard({ token }: TokenCardProps) {
   const dispatch = useDispatch<AppDispatch>()
   const [showPopover, setShowPopover] = useState(false)
   const isPositive = token.priceChange24h >= 0
@@ -27,73 +22,61 @@ export const TokenCard = memo(function TokenCard({
   }
 
   return (
-    <div className="flex-shrink-0 px-4 py-3 border-b border-[#1a1f3a] last:border-b-0">
+    <div className="relative">
       <button
         onClick={handleClick}
-        className="w-full text-left group cursor-pointer transition-all"
-        onMouseEnter={() => setShowPopover(true)}
-        onMouseLeave={() => setShowPopover(false)}
+        className="w-full group cursor-pointer transition-all duration-200 hover:scale-105"
       >
         <div
-          className={`bg-[#0a0e27] border ${borderColor} p-3 hover:bg-[#101530] transition-colors relative`}
+          className="bg-gradient-to-br from-[#1a1f3a] to-[#0f1220] border border-[#2a3050] rounded-lg p-4 hover:border-[#4a5070] hover:from-[#242945] hover:to-[#141829] transition-all"
+          onMouseEnter={() => setShowPopover(true)}
+          onMouseLeave={() => setShowPopover(false)}
         >
-          {/* Token icon with colored border */}
-          <div className="flex items-start gap-3 mb-2">
-            <div className={`w-12 h-12 flex-shrink-0 border-2 ${borderColor} flex items-center justify-center text-xl font-bold`}>
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded border border-[#3a4060] flex items-center justify-center bg-[#0f1220] text-sm font-bold flex-shrink-0">
               {token.icon}
             </div>
-            <div className="flex-1 min-w-0 pt-1">
-              <div className="flex items-center gap-1">
-                <h3 className="font-bold text-sm text-white">{token.symbol}</h3>
-                <span className="text-xs text-gray-400">🔒</span>
-              </div>
-              <p className="text-xs text-gray-400">{token.name}</p>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-sm truncate">{token.symbol}</h3>
+              <p className="text-xs text-gray-400 truncate">{token.name}</p>
             </div>
           </div>
 
-          {/* Top stats row */}
-          <div className="flex items-center justify-between text-xs mb-2">
-            <div className="flex items-center gap-1 text-gray-400">
-              <span>⏱</span>
-              <span>{token.timeframe}s</span>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <p className="text-gray-400 mb-1">Market Cap</p>
+              <p className="font-mono text-sm">${(token.marketCap / 1000).toFixed(1)}K</p>
             </div>
+            <div>
+              <p className="text-gray-400 mb-1">Price</p>
+              <p className={`font-mono text-sm ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
+                ${token.price.toFixed(6)}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 text-xs mt-3 pt-3 border-t border-[#2a3050]">
+            <div>
+              <p className="text-gray-400 mb-1">24h Change</p>
+              <p
+                className={`font-mono ${isPositive ? 'text-green-400' : 'text-red-400'}`}
+              >
+                {isPositive ? '+' : ''}{token.priceChange24h.toFixed(1)}%
+              </p>
+            </div>
+            <div>
+              <p className="text-gray-400 mb-1">Holders</p>
+              <p className="font-mono">{token.holders}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#2a3050]">
+            <span className="text-xs text-gray-500">{token.timeframe}</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-400">MC</span>
-              <span className="text-blue-400">${(token.marketCap / 1000).toFixed(1)}K</span>
+              <TokenTooltip token={token} />
+              {showPopover && <TokenPopover token={token} />}
             </div>
           </div>
-
-          {/* Metrics row - colored indicators */}
-          <div className="flex items-center gap-1 text-xs mb-2 flex-wrap">
-            <span className="text-gray-400">⏱</span>
-            <span className="text-yellow-400">●</span>
-            <span className="text-green-400">👥 5</span>
-            <span className="text-red-400">●</span>
-            <span className="text-gray-400">⊕ 0</span>
-            <span className="text-green-400">⊙ 0</span>
-            <span className="text-red-400">● 0</span>
-            <span className="text-gray-400">🔒 0</span>
-          </div>
-
-          {/* Changes row - green and red indicators */}
-          <div className="flex items-center gap-1 text-xs">
-            <span className="text-green-400">▲ {Math.abs(token.priceChange24h).toFixed(1)}%</span>
-            <span className="text-red-400">▼ 0%</span>
-            <span className="text-green-400">▲ {Math.abs(token.priceChange24h).toFixed(1)}%</span>
-            <span className="text-gray-400">◆ 0%</span>
-          </div>
-
-          {/* Price and SOL badge */}
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-[#1a1f3a]">
-            <span className="text-xs text-gray-400">F = 0.0 TX 1</span>
-            {category === 'migrated' && (
-              <span className="bg-blue-600 text-white text-xs px-2 py-1 rounded font-semibold">
-                0 SOL
-              </span>
-            )}
-          </div>
-
-          {showPopover && <TokenPopover token={token} category={category} />}
         </div>
       </button>
     </div>

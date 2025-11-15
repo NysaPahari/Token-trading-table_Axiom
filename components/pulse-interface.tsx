@@ -317,16 +317,23 @@ export function PulseInterface() {
   return (
     <div className="min-h-screen bg-[#0a0e27] text-white">
       <Header />
-      <div className="px-6 py-6">
-        <div className="flex gap-6 h-[calc(100vh-220px)]">
-          <ColumnSection title="New Pairs" tokens={MOCK_TOKENS.newPairs} />
-          <ColumnSection
-            title="Final Stretch"
-            tokens={MOCK_TOKENS.finalStretch}
-            isGradientAnimated={true}
-          />
-          <ColumnSection title="Migrated" tokens={MOCK_TOKENS.migrated} />
-        </div>
+      <div className="flex h-[calc(100vh-140px)]">
+        <ColumnSection
+          title="New Pairs"
+          tokens={MOCK_TOKENS.newPairs}
+          category="new-pairs"
+        />
+        <ColumnSection
+          title="Final Stretch"
+          tokens={MOCK_TOKENS.finalStretch}
+          category="final-stretch"
+          isGradientAnimated={true}
+        />
+        <ColumnSection
+          title="Migrated"
+          tokens={MOCK_TOKENS.migrated}
+          category="migrated"
+        />
       </div>
     </div>
   )

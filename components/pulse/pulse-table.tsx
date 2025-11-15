@@ -65,32 +65,29 @@ export function PulseTable() {
   const migrated = tokens.filter((t) => t.category === 'migrated')
 
   return (
-    <div className="h-screen bg-[#0a0e27] overflow-hidden flex flex-col">
-      <div className="flex-shrink-0 px-6 py-4">
-        <h1 className="text-2xl font-bold text-white">Pulse</h1>
+    <div className="h-full min-h-screen bg-[#0a0e27] p-4 md:p-6">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold mb-2">Pulse</h1>
+        <p className="text-gray-400 text-sm">Real-time token discovery</p>
       </div>
 
-      <div className="flex-shrink-0 px-6 pb-4 border-b border-[#1a1f3a]">
-        <ControlBar
-          sortBy={sortBy}
-          filterCategory={filterCategory}
-          displayMode={displayMode}
-          onSortChange={(sort) => dispatch(setSortBy(sort))}
-          onFilterChange={(filter) => dispatch(setFilterCategory(filter))}
-          onDisplayChange={(display) => dispatch(setDisplayMode(display))}
-        />
-      </div>
+      <ControlBar
+        sortBy={sortBy}
+        filterCategory={filterCategory}
+        displayMode={displayMode}
+        onSortChange={(sort) => dispatch(setSortBy(sort))}
+        onFilterChange={(filter) => dispatch(setFilterCategory(filter))}
+        onDisplayChange={(display) => dispatch(setDisplayMode(display))}
+      />
 
-      <div className="flex-1 overflow-hidden flex gap-0 px-4 py-4">
-        <TokenColumn title="New Pairs" tokens={newPairs} category="new-pairs" borderColor="border-yellow-500" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
+        <TokenColumn title="New Pairs" tokens={newPairs} category="new-pairs" />
         <TokenColumn
           title="Final Stretch"
           tokens={finalStretch}
           category="final-stretch"
-          borderColor="border-purple-500"
-          isShimmering
         />
-        <TokenColumn title="Migrated" tokens={migrated} category="migrated" borderColor="border-green-500" />
+        <TokenColumn title="Migrated" tokens={migrated} category="migrated" />
       </div>
 
       {showModal && selectedTokenId && (
