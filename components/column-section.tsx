@@ -89,18 +89,18 @@ export function ColumnSection({ title, tokens, isGradientAnimated, columnIndex }
   return (
     <div className="flex flex-col h-full border-r border-[#1a1f3a] last:border-r-0 overflow-hidden">
       {/* Column header - fixed */}
-      <div className="bg-[#0a0e27] border-b border-[#1a1f3a] px-2 sm:px-4 py-2 sm:py-2.5 flex-shrink-0">
-        <div className="flex items-center justify-between flex-wrap gap-1">
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <h2 className="text-xs sm:text-sm font-semibold text-white">{title}</h2>
-            <span className="text-[10px] sm:text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
-            <span className="text-[10px] sm:text-xs text-gray-500">O</span>
+      <div className="bg-[#0a0e27] border-b border-[#1a1f3a] px-4 py-2.5 flex-shrink-0">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-white">{title}</h2>
+            <span className="text-xs font-mono text-yellow-400">⚡ {tokens.length}</span>
+            <span className="text-xs text-gray-500">O</span>
           </div>
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            <span className="text-[10px] sm:text-xs text-gray-500">P1</span>
-            <span className="text-[10px] sm:text-xs text-gray-500">P2</span>
-            <span className="text-[10px] sm:text-xs text-gray-500">P3</span>
-            <button className="p-0.5 sm:p-1 text-gray-400 hover:text-white text-[10px] sm:text-xs">⇅</button>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-gray-500">P1</span>
+            <span className="text-xs text-gray-500">P2</span>
+            <span className="text-xs text-gray-500">P3</span>
+            <button className="p-1 text-gray-400 hover:text-white text-xs">⇅</button>
           </div>
         </div>
       </div>

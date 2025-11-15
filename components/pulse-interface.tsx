@@ -333,7 +333,7 @@ export function PulseInterface() {
     <div className="min-h-screen bg-[#0a0e27] text-white">
       <Header />
       <div className="h-[calc(100vh-140px)] overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 h-full">
+        <div className="grid grid-cols-3 h-full">
           <ColumnSection title="New Pairs" tokens={MOCK_TOKENS.newPairs} columnIndex={0} />
           <ColumnSection
             title="Final Stretch"

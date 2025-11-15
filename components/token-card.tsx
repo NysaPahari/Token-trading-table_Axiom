@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export interface TokenCardProps {
+interface TokenCardProps {
   token: {
     id: string
     name: string
@@ -28,7 +28,7 @@ export interface TokenCardProps {
   columnIndex: number
 }
 
-function TokenCard({ token, columnIndex }: TokenCardProps) {
+export function TokenCard({ token, columnIndex }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   // Get border color based on column
@@ -68,13 +68,13 @@ function TokenCard({ token, columnIndex }: TokenCardProps) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="p-2 sm:p-3">
+      <div className="p-3">
         {/* Top section: Icon, Name, Address */}
         <div className="flex items-start gap-3 mb-2">
           {/* Token Icon with colored border */}
           <div className="relative flex-shrink-0">
             <div
-              className={`w-12 h-12 sm:w-14 sm:h-14 border-2 ${getBorderColor()} bg-black flex items-center justify-center text-white font-bold text-base sm:text-lg`}
+              className={`w-14 h-14 border-2 ${getBorderColor()} bg-black flex items-center justify-center text-white font-bold text-lg`}
             >
               {token.icon}
             </div>
@@ -100,35 +100,35 @@ function TokenCard({ token, columnIndex }: TokenCardProps) {
         </div>
 
         {/* Middle section: Time, Metrics, MC, V, F, TX */}
-        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-          <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
-            <span className="text-green-400 text-[10px] sm:text-xs font-mono">{token.time}</span>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-green-400 text-xs font-mono">{token.time}</span>
             
             {/* Search icon */}
-            <span className="text-gray-500 text-[10px] sm:text-xs">Q</span>
-            <span className="text-gray-400 text-[10px] sm:text-xs">{token.visitors || 0}</span>
+            <span className="text-gray-500 text-xs">Q</span>
+            <span className="text-gray-400 text-xs">{token.visitors || 0}</span>
             
             {/* Holders icon */}
-            <span className="text-gray-500 text-[10px] sm:text-xs">👥</span>
-            <span className={`text-[10px] sm:text-xs font-mono ${token.holders > 0 ? 'text-white' : 'text-gray-500'}`}>
+            <span className="text-gray-500 text-xs">👥</span>
+            <span className={`text-xs font-mono ${token.holders > 0 ? 'text-white' : 'text-gray-500'}`}>
               {token.holders}
             </span>
             
             {/* Chart icon */}
-            <span className="text-gray-500 text-[10px] sm:text-xs">📊</span>
-            <span className="text-gray-500 text-[10px] sm:text-xs">0</span>
+            <span className="text-gray-500 text-xs">📊</span>
+            <span className="text-gray-500 text-xs">0</span>
             
             {/* Trophy icon */}
-            <span className="text-gray-500 text-[10px] sm:text-xs">🏆</span>
-            <span className="text-gray-500 text-[10px] sm:text-xs">0</span>
+            <span className="text-gray-500 text-xs">🏆</span>
+            <span className="text-gray-500 text-xs">0</span>
             
             {/* Crown icon */}
-            <span className="text-gray-500 text-[10px] sm:text-xs">👑</span>
-            <span className="text-gray-500 text-[10px] sm:text-xs">0/1</span>
+            <span className="text-gray-500 text-xs">👑</span>
+            <span className="text-gray-500 text-xs">0/1</span>
           </div>
 
           {/* Right side: MC, V, F, TX */}
-          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs">
+          <div className="flex items-center gap-3 text-xs">
             <div>
               <span className="text-gray-500">MC</span>{' '}
               <span className="text-blue-400 font-mono font-semibold">{token.mc}</span>
@@ -157,57 +157,57 @@ function TokenCard({ token, columnIndex }: TokenCardProps) {
         </div>
 
         {/* Bottom section: Percentage changes and SOL box */}
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <div className="flex items-center gap-1 sm:gap-1.5 flex-wrap">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 flex-wrap">
             {/* Star icon with percentage */}
             <div className="flex items-center gap-0.5">
-              <span className="text-gray-500 text-[10px] sm:text-xs">⭐</span>
-              <span className={`text-[10px] sm:text-xs font-semibold ${getChangeColor(token.dayChange)}`}>
+              <span className="text-gray-500 text-xs">⭐</span>
+              <span className={`text-xs font-semibold ${getChangeColor(token.dayChange)}`}>
                 {token.dayChange}%
               </span>
             </div>
 
             {/* Chef hat with percentage and time */}
             <div className="flex items-center gap-0.5">
-              <span className="text-gray-500 text-[10px] sm:text-xs">👨‍🍳</span>
-              <span className={`text-[10px] sm:text-xs font-semibold ${getChangeColor(token.hourChange)}`}>
+              <span className="text-gray-500 text-xs">👨‍🍳</span>
+              <span className={`text-xs font-semibold ${getChangeColor(token.hourChange)}`}>
                 {token.hourChange}%
               </span>
-              <span className="text-gray-500 text-[10px] sm:text-xs">2mo</span>
+              <span className="text-gray-500 text-xs">2mo</span>
             </div>
 
             {/* Target icon */}
             <div className="flex items-center gap-0.5">
-              <span className="text-gray-500 text-[10px] sm:text-xs">🎯</span>
-              <span className={`text-[10px] sm:text-xs font-semibold ${getChangeColor(token.minChange)}`}>
+              <span className="text-gray-500 text-xs">🎯</span>
+              <span className={`text-xs font-semibold ${getChangeColor(token.minChange)}`}>
                 {token.minChange}%
               </span>
             </div>
 
             {/* Ghost icon */}
             <div className="flex items-center gap-0.5">
-              <span className="text-gray-500 text-[10px] sm:text-xs">👻</span>
-              <span className={`text-[10px] sm:text-xs font-semibold ${getChangeColor(token.volume)}`}>
+              <span className="text-gray-500 text-xs">👻</span>
+              <span className={`text-xs font-semibold ${getChangeColor(token.volume)}`}>
                 {token.volume}%
               </span>
             </div>
 
             {/* Clover icon */}
             <div className="flex items-center gap-0.5">
-              <span className="text-gray-500 text-[10px] sm:text-xs">🍀</span>
-              <span className="text-[10px] sm:text-xs font-semibold text-green-400">0%</span>
+              <span className="text-gray-500 text-xs">🍀</span>
+              <span className="text-xs font-semibold text-green-400">0%</span>
             </div>
 
             {/* Indicator circles */}
-            <div className="flex items-center gap-0.5 sm:gap-1 ml-1">
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full"></div>
-              <span className="text-gray-500 text-[10px] sm:text-xs">>>></span>
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-yellow-500 rounded-full"></div>
+            <div className="flex items-center gap-1 ml-1">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <span className="text-gray-500 text-xs">>>></span>
+              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
             </div>
           </div>
 
           {/* SOL box */}
-          <button className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] sm:text-xs font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded transition-colors flex items-center gap-0.5">
+          <button className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-2.5 py-1 rounded transition-colors flex items-center gap-0.5">
             <span>4</span>
             <span>O</span>
             <span>SOL</span>
@@ -217,5 +217,3 @@ function TokenCard({ token, columnIndex }: TokenCardProps) {
     </div>
   )
 }
-
-export { TokenCard }
