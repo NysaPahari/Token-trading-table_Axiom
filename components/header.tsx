@@ -5,7 +5,13 @@ import { memo } from 'react'
 function HeaderComponent() {
   return (
     <header className="bg-[#000000] sticky top-0 z-50">
-      <div className="px-6 py-2.5 flex items-center justify-between border-b border-[#1a1f3a]">
+      {/* Mobile top dots indicator */}
+      <div className="lg:hidden flex justify-center items-center py-2">
+        {[0,1,2].map(idx => (
+          <span key={idx} className={`mx-1 h-2 rounded-full transition-all ${idx === 1 ? 'bg-[#667AFF] w-6' : 'bg-gray-600 w-2'}`}></span>
+        ))}
+      </div>
+      <div className="px-4 py-2 flex items-center justify-between border-b border-[#1a1f3a]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
@@ -18,7 +24,7 @@ function HeaderComponent() {
             </div>
 
           </div>
-          <nav className="flex gap-6 ml-12">
+          <nav className="hidden md:flex gap-6 ml-8">
             {['Discover', 'Pulse', 'Trackers', 'Perpetuals', 'Yield', 'Vision', 'Portfolio'].map(
               (item) => (
                 <a
@@ -36,16 +42,20 @@ function HeaderComponent() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div className="hidden md:block relative">
             <input
               type="text"
               placeholder="Search by token or CA..."
-              className=" border border-[#2a2f4a] rounded-3xl pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-64"
+              className="border border-[#2a2f4a] rounded-3xl pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-48"
             />
             <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
+                    {/* Hamburger icon for mobile */}
+                    <div className="md:hidden flex items-center">
+                      <button className="text-white text-2xl px-2 py-1"><span>☰</span></button>
+                    </div>
           <button className="flex items-center gap-2 px-3 py-2 bg-[#1a1f3a] border border-[#2a2f4a] rounded-3xl text-gray-300 hover:bg-[#2a2f4a] text-sm transition-colors">
             <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-violet-600">
               <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
