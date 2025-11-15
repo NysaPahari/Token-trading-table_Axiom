@@ -191,7 +191,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               <div className="w-[12px] h-[12px] rounded-full border-2 border-yellow-400 bg-transparent" />
             </div>
           ) : (
-            <div className="w-[52px] h-[16px] rounded-full flex items-center justify-center border-2 border-[#667AFF] bg-transparent">
+            <div className="w-[60px] h-[18px] rounded-full flex items-center justify-center border-2 border-[#667AFF] bg-transparent">
               <span className="text-[#667AFF] text-xs font-semibold">+ 0 SOL</span>
             </div>
           )}
