@@ -44,8 +44,8 @@ export function ColumnSection({
     if (!isGradientAnimated) return
 
     const interval = setInterval(() => {
-      setShimmerPos((prev) => (prev + 1) % 100)
-    }, 30)
+      setShimmerPos((prev) => (prev + 0.5) % 200)
+    }, 16)
 
     return () => clearInterval(interval)
   }, [isGradientAnimated])
@@ -66,14 +66,14 @@ export function ColumnSection({
       </div>
 
       <div
-        className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar"
+        className="flex-1 overflow-y-auto pr-0.5 custom-scrollbar relative"
         style={
           isGradientAnimated
             ? {
-                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.08) ${shimmerPos}%, transparent ${shimmerPos + 20}%)`,
-                backgroundSize: '100% 100%',
-                backgroundPosition: '0 0',
-                backgroundAttachment: 'scroll',
+                backgroundImage: `linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.12) ${shimmerPos}%, rgba(139, 92, 246, 0.18) ${shimmerPos + 2}%, rgba(139, 92, 246, 0.12) ${shimmerPos + 8}%, transparent ${shimmerPos + 12}%)`,
+                backgroundSize: '200% 100%',
+                backgroundPosition: `${shimmerPos}% 0`,
+                backgroundRepeat: 'no-repeat',
               }
             : {}
         }

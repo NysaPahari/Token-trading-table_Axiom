@@ -30,7 +30,7 @@ interface TokenCardProps {
 export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
-  const getBorderColor = () => {
+  const getIconBorderColor = () => {
     switch (category) {
       case 'new-pairs':
         return 'border-yellow-500'
@@ -77,7 +77,7 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
 
   return (
     <div
-      className={`relative p-3 border bg-[#0f1326] hover:bg-[#141928] transition-all duration-150 cursor-pointer overflow-hidden ${getBorderColor()}`}
+      className="relative p-3 bg-[#0f1326] hover:bg-[#141928] transition-all duration-150 cursor-pointer overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -87,79 +87,80 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
         </div>
       )}
 
-      <div className="relative z-10 space-y-2">
-        {/* Token header with icon and name */}
-        <div className="flex items-start gap-2 mb-2">
+      <div className="relative z-10">
+        {/* Token card with icon on left and all content on right */}
+        <div className="flex items-center gap-3">
+          {/* Icon with border color */}
           <div
-            className={`w-10 h-10 rounded flex items-center justify-center text-sm font-bold flex-shrink-0 ${getIconColor(
+            className={`w-16 h-16 flex items-center justify-center text-lg font-bold flex-shrink-0 border-2 ${getIconBorderColor()} ${getIconColor(
               token.gradient
             )} text-white`}
           >
             {token.icon}
           </div>
 
+          {/* All content to the right of icon */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1.5">
+            {/* Top row: Name, lock icon, MC, V */}
+            <div className="flex items-center gap-2 mb-1">
               <span className="font-semibold text-white text-sm">{token.name}</span>
               <span className="text-xs text-gray-400">🔐</span>
+              <span className="text-xs text-gray-500 truncate">{token.fullName}</span>
+              <div className="ml-auto flex items-center gap-2">
+                <div className="text-xs">
+                  <span className="text-gray-500 text-xs">MC</span>{' '}
+                  <span className="text-blue-400 font-mono font-semibold text-sm">{token.mc}</span>
+                </div>
+                <div className="text-xs text-gray-600 font-mono">
+                  V <span className="text-gray-400">{token.price}</span>
+                </div>
+              </div>
             </div>
-            <div className="text-xs text-gray-500 truncate">{token.fullName}</div>
-          </div>
 
-          {/* Price section on right */}
-          <div className="text-right flex-shrink-0">
-            <div className="text-xs">
-              <span className="text-gray-500 text-xs">MC</span>{' '}
-              <span className="text-blue-400 font-mono font-semibold text-sm">{token.mc}</span>
+            {/* Middle row: Time, icons, metrics, F */}
+            <div className="flex items-center gap-1 text-xs mb-1">
+              <span className="text-gray-400">{token.time}</span>
+              <span className="w-1 h-1 rounded-full bg-yellow-400"></span>
+              <span className="text-gray-500">👥</span>
+              <span className="text-green-400">{token.holders}</span>
+              <span className="w-1 h-1 rounded-full bg-red-400"></span>
+              <span className="text-gray-500">Ⓣ</span>
+              <span className="text-green-400">{token.transactions}</span>
+              <span className="text-gray-500">👁</span>
+              <span className={token.visitors > 0 ? 'text-green-400' : 'text-gray-500'}>
+                {token.visitors}
+              </span>
+              <span className="text-gray-500">🔐</span>
+              <span className={token.lpLocked > 0 ? 'text-green-400' : 'text-gray-500'}>
+                {token.lpLocked}
+              </span>
+              <div className="ml-auto text-right text-xs text-gray-500">
+                F ≡ {token.fee} TX {token.tx}
+              </div>
             </div>
-            <div className="text-xs text-gray-600 font-mono">
-              v <span className="text-gray-400">{token.price}</span>
+
+            {/* Bottom row: Change percentages and button */}
+            <div className="flex gap-1.5 flex-wrap items-center text-xs">
+              <span className={token.dayChange > 0 ? 'text-green-400' : 'text-red-500'}>
+                {token.dayChange > 0 ? '▲' : '▼'} {Math.abs(token.dayChange)}%
+              </span>
+              <span className={token.hourChange > 0 ? 'text-green-400' : 'text-red-500'}>
+                {token.hourChange > 0 ? '▲' : '▼'} {Math.abs(token.hourChange)}%
+              </span>
+              <span className={token.minChange > 0 ? 'text-green-400' : 'text-red-500'}>
+                {token.minChange > 0 ? '▲' : '▼'} {Math.abs(token.minChange)}%
+              </span>
+              <span className={token.volume > 0 ? 'text-green-400' : 'text-gray-500'}>
+                {token.volume > 0 ? '📊' : '○'} {token.volume}%
+              </span>
+
+              {token.hasBadge && (
+                <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors">
+                  0 SOL
+                </button>
+              )}
             </div>
           </div>
-        </div>
-
-        {/* Metrics row */}
-        <div className="flex items-center gap-1 text-xs mb-1">
-          <span className="text-gray-400">{token.time}</span>
-          <span className="w-1 h-1 rounded-full bg-yellow-400"></span>
-          <span className="text-gray-500">👥</span>
-          <span className="text-green-400">{token.holders}</span>
-          <span className="w-1 h-1 rounded-full bg-red-400"></span>
-          <span className="text-gray-500">Ⓣ</span>
-          <span className="text-green-400">{token.transactions}</span>
-          <span className="text-gray-500">👁</span>
-          <span className={token.visitors > 0 ? 'text-green-400' : 'text-gray-500'}>
-            {token.visitors}
-          </span>
-          <span className="text-gray-500">🔐</span>
-          <span className={token.lpLocked > 0 ? 'text-green-400' : 'text-gray-500'}>
-            {token.lpLocked}
-          </span>
-          <div className="ml-auto text-right text-xs text-gray-500">
-            F ≡ {token.fee} TX {token.tx}
-          </div>
-        </div>
-
-        {/* Change percentages */}
-        <div className="flex gap-1.5 flex-wrap text-xs">
-          <span className={token.dayChange > 0 ? 'text-green-400' : 'text-red-500'}>
-            {token.dayChange > 0 ? '▲' : '▼'} {Math.abs(token.dayChange)}%
-          </span>
-          <span className={token.hourChange > 0 ? 'text-green-400' : 'text-red-500'}>
-            {token.hourChange > 0 ? '▲' : '▼'} {Math.abs(token.hourChange)}%
-          </span>
-          <span className={token.minChange > 0 ? 'text-green-400' : 'text-red-500'}>
-            {token.minChange > 0 ? '▲' : '▼'} {Math.abs(token.minChange)}%
-          </span>
-          <span className={token.volume > 0 ? 'text-green-400' : 'text-gray-500'}>
-            {token.volume > 0 ? '📊' : '○'} {token.volume}%
-          </span>
-
-          {token.hasBadge && (
-            <button className="ml-auto bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded transition-colors">
-              0 SOL
-            </button>
-          )}
         </div>
       </div>
     </div>
