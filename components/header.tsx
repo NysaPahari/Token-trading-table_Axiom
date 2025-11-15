@@ -9,7 +9,12 @@ export function Header() {
             <div className="w-6 h-6 flex items-center justify-center">
               <div className="w-0 h-0 border-l-[12px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent"></div>
             </div>
-            <div className="text-2xl font-bold text-white">AXIOM Pro</div>
+            //<div className="text-2xl font-bold text-white">AXIOM Pro</div>
+            <div className="text-white">
+            <span className="text-2xl font-normal">AXIOM</span>{" "}
+            <span className="text-lg font-normal">Pro</span>
+            </div>
+
           </div>
           <nav className="flex gap-8 ml-12">
             {['Discover', 'Pulse', 'Trackers', 'Perpetuals', 'Yield', 'Vision', 'Portfolio'].map(
