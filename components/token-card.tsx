@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-interface TokenCardProps {
+export interface TokenCardProps {
   token: {
     id: string
     name: string
@@ -28,7 +28,7 @@ interface TokenCardProps {
   columnIndex: number
 }
 
-export function TokenCard({ token, columnIndex }: TokenCardProps) {
+function TokenCard({ token, columnIndex }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   // Get border color based on column
@@ -217,3 +217,5 @@ export function TokenCard({ token, columnIndex }: TokenCardProps) {
     </div>
   )
 }
+
+export { TokenCard }
