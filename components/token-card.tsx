@@ -172,9 +172,9 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
               </span>
 
               {(token.hasBadge || category === 'migrated' || category === 'new-pairs') && (
-                <button className="ml-auto bg-[#667AFF] text-white text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
-                  <span className="text-white">⚡</span>
-                  <span className="text-white">0 SOL</span>
+                <button className="ml-auto bg-[#667AFF] text-black text-xs font-semibold px-2 py-0.5 rounded-lg transition-colors flex items-center gap-1">
+                  <span className="text-black">⚡</span>
+                  <span className="text-black">0 SOL</span>
                 </button>
               )}
             </div>
@@ -185,14 +185,14 @@ export function TokenCard({ token, category = 'new-pairs' }: TokenCardProps) {
       {category === 'final-stretch' && (
         <div className="absolute bottom-2 right-2 z-20">
           {!isHovered ? (
-            <div className="flex items-center gap-[15px]">{/* 15px gap */}
-              <div className="w-[14px] h-[14px] rounded-full border-2 border-red-500 bg-transparent" />
-              <span className="text-green-400 font-semibold">&gt;</span>
-              <div className="w-[14px] h-[14px] rounded-full border-2 border-yellow-400 bg-transparent" />
+            <div className="flex items-center gap-[8px]">{/* reduced gap to match rect width */}
+              <div className="w-[12px] h-[12px] rounded-full border-2 border-red-500 bg-transparent" />
+              <span className="text-green-400 font-semibold text-xs">&gt;</span>
+              <div className="w-[12px] h-[12px] rounded-full border-2 border-yellow-400 bg-transparent" />
             </div>
           ) : (
-            <div className="w-[56px] h-[18px] rounded-full flex items-center justify-center border-2 border-[#667AFF] bg-transparent">
-              <span className="text-[#667AFF] text-sm font-semibold">+ 0 SOL</span>
+            <div className="w-[52px] h-[16px] rounded-full flex items-center justify-center border-2 border-[#667AFF] bg-transparent">
+              <span className="text-[#667AFF] text-xs font-semibold">+ 0 SOL</span>
             </div>
           )}
         </div>
