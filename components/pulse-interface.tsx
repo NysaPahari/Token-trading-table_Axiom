@@ -24,7 +24,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-blue-500 to-blue-600',
-      address: '3BnxKpump',
     },
     {
       id: 'game4legs',
@@ -45,7 +44,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-purple-400 to-pink-400',
-      address: 'G1PBam25',
     },
     {
       id: 'brrs',
@@ -66,7 +64,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-amber-300 to-orange-400',
-      address: '3BnxKpump',
     },
     {
       id: 'grokguys',
@@ -87,7 +84,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '2',
       gradient: 'from-green-400 to-emerald-500',
-      address: 'G1PBam25',
     },
     {
       id: 'jlm',
@@ -108,7 +104,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-yellow-400 to-orange-500',
-      address: '3BnxKpump',
     },
   ],
   finalStretch: [
@@ -131,7 +126,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-cyan-400 to-blue-500',
-      address: '3BnxKpump',
     },
     {
       id: 'nvidia',
@@ -152,7 +146,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-lime-300 to-green-500',
-      address: 'G1PBam25',
     },
     {
       id: 'hoejak',
@@ -173,7 +166,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-pink-400 to-rose-500',
-      address: 'G1PBam25',
     },
     {
       id: 'cpt',
@@ -194,7 +186,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '2',
       gradient: 'from-slate-400 to-slate-600',
-      address: '3BnxKpump',
     },
     {
       id: 'kirk',
@@ -215,7 +206,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-red-400 to-red-600',
-      address: 'G1PBam25',
     },
   ],
   migrated: [
@@ -239,7 +229,6 @@ const MOCK_TOKENS = {
       tx: '13',
       hasBadge: true,
       gradient: 'from-red-500 to-red-600',
-      address: '3BnxKpump',
     },
     {
       id: 'scrappy',
@@ -260,7 +249,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-orange-400 to-amber-500',
-      address: '3BnxKpump',
     },
     {
       id: 'invest',
@@ -281,7 +269,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-yellow-500 to-amber-600',
-      address: 'G1PBam25',
     },
     {
       id: 'mayhem',
@@ -302,7 +289,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '61',
       gradient: 'from-yellow-500 to-yellow-600',
-      address: '3BnxKpump',
     },
     {
       id: 'govslop',
@@ -323,7 +309,6 @@ const MOCK_TOKENS = {
       fee: '0.0',
       tx: '1',
       gradient: 'from-red-500 to-orange-600',
-      address: 'G1PBam25',
     },
   ],
 }
@@ -332,16 +317,15 @@ export function PulseInterface() {
   return (
     <div className="min-h-screen bg-[#0a0e27] text-white">
       <Header />
-      <div className="h-[calc(100vh-140px)] overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 h-full">
-          <ColumnSection title="New Pairs" tokens={MOCK_TOKENS.newPairs} columnIndex={0} />
+      <div className="px-6 py-6">
+        <div className="flex gap-6 h-[calc(100vh-220px)]">
+          <ColumnSection title="New Pairs" tokens={MOCK_TOKENS.newPairs} />
           <ColumnSection
             title="Final Stretch"
             tokens={MOCK_TOKENS.finalStretch}
             isGradientAnimated={true}
-            columnIndex={1}
           />
-          <ColumnSection title="Migrated" tokens={MOCK_TOKENS.migrated} columnIndex={2} />
+          <ColumnSection title="Migrated" tokens={MOCK_TOKENS.migrated} />
         </div>
       </div>
     </div>
