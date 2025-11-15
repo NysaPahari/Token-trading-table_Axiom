@@ -2,8 +2,8 @@
 
 export function Header() {
   return (
-    <header className="bg-[#000000] border-b border-[#1a1f3a] sticky top-0 z-50">
-      <div className="px-6 py-2.5 flex items-center justify-between">
+    <header className="bg-[#000000] sticky top-0 z-50">
+      <div className="px-6 py-2.5 flex items-center justify-between border-b border-[#1a1f3a]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
@@ -80,7 +80,7 @@ export function Header() {
 
       {/* Tab section with controls */}
         {/* Icon row */}
-        <div className="px-6 py-1 flex items-center gap-2 bg-[#000000]">
+        <div className="px-6 py-1 flex items-center gap-2 bg-[#000000] border-b border-[#1a1f3a]">
           <button className="text-white hover:text-white text-xs p-1 transition-colors">⚙️</button>
           <button className="text-white hover:text-white text-xs p-1 transition-colors">★</button>
           <button className="text-white hover:text-white text-xs p-1 transition-colors">📈</button>
