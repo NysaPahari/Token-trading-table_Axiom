@@ -7,7 +7,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className="flex items-center justify-center">
-              <div className="w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-b-[28px] border-b-white"></div>
+              <div className="w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-b-[28px] border-b-white"></div>
             </div>
             
             <div className="text-white">
@@ -23,7 +23,7 @@ export function Header() {
                   key={item}
                   href="#"
                   className={`text-sm font-medium transition-colors ${
-                    item === 'Pulse' ? 'text-violet-600' : 'text-gray-400 hover:text-white'
+                    item === 'Pulse' ? 'text-violet-800' : 'text-gray-400 hover:text-white'
                   }`}
                 >
                   {item}
@@ -38,7 +38,7 @@ export function Header() {
             <input
               type="text"
               placeholder="Search by token or CA..."
-              className="bg-[#1a1f3a] border border-[#2a2f4a] rounded-lg pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-64"
+              className=" border border-[#2a2f4a] rounded-xl pl-10 pr-4 py-2 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-blue-400 w-64"
             />
             <svg className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
