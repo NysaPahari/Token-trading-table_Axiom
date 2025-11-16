@@ -71,9 +71,11 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
   }, [token.dayChange, token.hourChange, token.minChange])
 
   // Check if token has dynamic numbers (for 2nd column label display)
-  // For 2nd column: exactly 3 tokens (velon, nvidia, hoejak) should have dynamic numbers
-  const migratingTokens = ['velon', 'nvidia', 'hoejak']
+  // For 2nd column: tokens with coin graphic should have migrating label
+  // More tokens in 2nd column can have coin graphic now
+  const migratingTokens = ['velon', 'nvidia', 'hoejak', 'cpt', 'kirk', 'seahorse2', 'uscr', 'fight', 'blob', 'geometric']
   const isMigratingToken = category === 'final-stretch' && migratingTokens.includes(token.id)
+  // If token has coin graphic (isMigratingToken) AND has dynamic numbers, show migrating label
   const hasActiveUpdates = category === 'final-stretch' && isMigratingToken && hasDynamicNumbers
   // Coin graphic always visible for migrating tokens in 2nd column
   const showCoinGraphic = isMigratingToken

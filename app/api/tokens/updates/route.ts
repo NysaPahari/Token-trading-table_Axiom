@@ -55,27 +55,35 @@ export async function POST(request: Request) {
 }
 
 function generatePriceUpdates(lastUpdate: number) {
-  const tokenIds = [
-    'mario', 'game4legs', 'brrs', 'grokguys', 'jlm',
-    'velon', 'nvidia', 'hoejak', 'cpt', 'kirk',
-    'mario-migrated', 'scrappy', 'invest', 'mayhem', 'govslop'
-  ]
-
+  // All token IDs organized by column
+  const newPairsIds = ['mario', 'game4legs', 'brrs', 'grokguys', 'jlm', 'rrock', 'lilpepe', 'ups', 'fartrocket', 'doge2', 'moon', 'star']
+  const finalStretchIds = ['velon', 'nvidia', 'hoejak', 'cpt', 'kirk', 'seahorse2', 'uscr', 'fight', 'blob', 'geometric']
+  const migratedIds = ['mario-migrated', 'scrappy', 'invest', 'mayhem', 'govslop', 'ups-migrated', 'elord', 'hakimi', 'cr5', 'prizepicks', 'wifejak', 'nvidia-migrated']
+  
+  const allTokenIds = [...newPairsIds, ...finalStretchIds, ...migratedIds]
   const updates = []
   const now = Date.now()
   
   // Return updates very frequently for maximum visibility
   if (!lastUpdate || now - lastUpdate > 200) {
-    // Update 5-8 tokens per request (very visible)
-    const randomCount = Math.floor(Math.random() * 4) + 5
+    // Update 8-12 tokens per request (more visible, shuffling across columns)
+    const randomCount = Math.floor(Math.random() * 5) + 8
     
-    // Always update exactly 3 final-stretch tokens for 2nd column dynamics
-    const finalStretchIds = ['velon', 'nvidia', 'hoejak'] // Exactly 3 tokens for 2nd column
-    const otherIds = tokenIds.filter(id => !finalStretchIds.includes(id))
+    // Shuffle tokens from all columns for variety
+    const shuffledNewPairs = [...newPairsIds].sort(() => Math.random() - 0.5)
+    const shuffledFinalStretch = [...finalStretchIds].sort(() => Math.random() - 0.5)
+    const shuffledMigrated = [...migratedIds].sort(() => Math.random() - 0.5)
     
-    // Always include the 3 final-stretch tokens, then add others
-    const shuffledOther = [...otherIds].sort(() => Math.random() - 0.5)
-    const selectedTokens = [...finalStretchIds, ...shuffledOther.slice(0, Math.max(0, randomCount - 3))]
+    // Distribute updates across all 3 columns (more to 2nd column)
+    const newPairsCount = Math.floor(randomCount * 0.3) // ~30% to column 1
+    const finalStretchCount = Math.floor(randomCount * 0.4) // ~40% to column 2 (more dynamic)
+    const migratedCount = randomCount - newPairsCount - finalStretchCount // Rest to column 3
+    
+    const selectedTokens = [
+      ...shuffledNewPairs.slice(0, newPairsCount),
+      ...shuffledFinalStretch.slice(0, finalStretchCount),
+      ...shuffledMigrated.slice(0, migratedCount),
+    ]
     
     for (const tokenId of selectedTokens) {
       // Much larger price changes for maximum visibility (-12% to +12%)
