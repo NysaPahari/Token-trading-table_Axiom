@@ -69,14 +69,13 @@ function generatePriceUpdates(lastUpdate: number) {
     // Update 5-8 tokens per request (very visible)
     const randomCount = Math.floor(Math.random() * 4) + 5
     
-    // Prioritize final-stretch tokens for visibility
-    const finalStretchIds = ['velon', 'nvidia', 'hoejak', 'cpt', 'kirk']
+    // Always update exactly 3 final-stretch tokens for 2nd column dynamics
+    const finalStretchIds = ['velon', 'nvidia', 'hoejak'] // Exactly 3 tokens for 2nd column
     const otherIds = tokenIds.filter(id => !finalStretchIds.includes(id))
     
-    // Get unique random tokens, prioritizing final-stretch
-    const shuffledFinal = [...finalStretchIds].sort(() => Math.random() - 0.5)
+    // Always include the 3 final-stretch tokens, then add others
     const shuffledOther = [...otherIds].sort(() => Math.random() - 0.5)
-    const selectedTokens = [...shuffledFinal.slice(0, Math.min(3, randomCount)), ...shuffledOther.slice(0, randomCount - 3)]
+    const selectedTokens = [...finalStretchIds, ...shuffledOther.slice(0, Math.max(0, randomCount - 3))]
     
     for (const tokenId of selectedTokens) {
       // Much larger price changes for maximum visibility (-12% to +12%)
