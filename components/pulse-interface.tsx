@@ -10,10 +10,10 @@ import { MOCK_TOKENS } from '../lib/mock-data'
 export function PulseInterface() {
   const containerRef = React.useRef<HTMLDivElement>(null)
 
-  const columns = [
+    const columns = [
     { title: 'New Pairs', tokens: MOCK_TOKENS.newPairs, category: 'new-pairs' },
     { title: 'Final Stretch', tokens: MOCK_TOKENS.finalStretch, category: 'final-stretch', isGradientAnimated: true },
-    { title: 'Migrated', tokens: MOCK_TOKENS.migrated, category: 'migrated' }
+    { title: 'Virtual Curve', tokens: MOCK_TOKENS.migrated, category: 'migrated' }
   ]
 
   return (

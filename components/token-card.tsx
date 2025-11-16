@@ -52,10 +52,18 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
       {isHovered && (
         <div
           className={`absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none rounded px-2 py-0.5 text-xs font-semibold bg-transparent border whitespace-nowrap ${
-            category === 'migrated' ? 'border-green-400 text-green-400' : 'border-red-500 text-red-500'
+            category === 'final-stretch'
+              ? 'border-green-400 text-green-400'
+              : category === 'migrated'
+              ? 'border-white/20 text-white opacity-90'
+              : 'border-red-500 text-red-500'
           }`}
         >
-          {category === 'migrated' ? 'Migrating %' : 'Bonding %'}
+          {category === 'final-stretch'
+            ? 'Migrating %'
+            : category === 'migrated'
+            ? 'Virtual Curve'
+            : 'Bonding %'}
         </div>
       )}
 
