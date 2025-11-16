@@ -1,7 +1,10 @@
 'use client'
 
 import { TokenCard } from './token-card'
-import { useEffect, useState, memo } from 'react'
+import { useEffect, useState, memo, useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store'
+import { useTokenSorting } from '@/hooks/useTokenSorting'
 
 interface Token {
   id: string
@@ -39,6 +42,10 @@ function ColumnSectionComponent({
   isGradientAnimated,
 }: ColumnSectionProps) {
   const [shimmerPos, setShimmerPos] = useState(-100)
+  const sortBy = useSelector((state: RootState) => state.tokens.sortBy)
+  
+  // Apply sorting to tokens
+  const sortedTokens = useTokenSorting(tokens, sortBy)
 
   useEffect(() => {
     if (!isGradientAnimated) return
@@ -90,7 +97,7 @@ function ColumnSectionComponent({
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-2 py-1 border border-[#2a2f4a] rounded-lg">
-            <span className="text-sm font-mono text-white">⚡ {tokens.length}</span>
+            <span className="text-sm font-mono text-white">⚡ {sortedTokens.length}</span>
             <button className="w-5 h-5 rounded flex items-center justify-center text-purple-400 hover:bg-purple-500/20 transition-colors">
               <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
                 <path d="M2 4L6 2L10 4L6 6L2 4Z" fill="currentColor" opacity="0.6"/>
@@ -120,7 +127,7 @@ function ColumnSectionComponent({
           />
         )}
         <div className="space-y-0 p-3 pt-5 relative z-10">
-          {tokens.map((token) => (
+          {sortedTokens.map((token) => (
             <TokenCard key={token.id} token={token} category={category} />
           ))}
         </div>

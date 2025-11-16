@@ -1,16 +1,29 @@
 'use client'
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from './header'
 import { ColumnSection } from './column-section'
 import { BottomBar } from './bottom-bar'
 import { MobileColumnIndicator } from './mobile-column-indicator'
 import { MOCK_TOKENS } from '../lib/mock-data'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { setSortBy } from '@/store/slices/token-slice'
+import { useTokenUpdates } from '@/hooks/useTokenUpdates'
 
 export function PulseInterface() {
   const containerRef = React.useRef<HTMLDivElement>(null)
+  const dispatch = useDispatch<AppDispatch>()
 
-    const columns = [
+  // Initialize default sort
+  useEffect(() => {
+    dispatch(setSortBy('market-cap'))
+  }, [dispatch])
+
+  // Start real-time updates
+  useTokenUpdates(2000)
+
+  const columns = [
     { title: 'New Pairs', tokens: MOCK_TOKENS.newPairs, category: 'new-pairs' },
     { title: 'Final Stretch', tokens: MOCK_TOKENS.finalStretch, category: 'final-stretch', isGradientAnimated: true },
     { title: 'Virtual Curve', tokens: MOCK_TOKENS.migrated, category: 'migrated' }

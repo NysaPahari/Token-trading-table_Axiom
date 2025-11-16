@@ -34,13 +34,12 @@ export function PulseTable() {
   }, [data, dispatch])
 
   useEffect(() => {
-    const unsubscribe = subscribeToTokenUpdates((updatedToken) => {
+    const unsubscribe = subscribeToTokenUpdates((update) => {
       dispatch({
         type: 'tokens/updateTokenPrice',
         payload: {
-          id: updatedToken.id,
-          price: updatedToken.price,
-          change: updatedToken.priceChange24h,
+          id: update.id,
+          priceChange: update.priceChange,
         },
       })
     })

@@ -1,71 +1,149 @@
 import { Token } from '@/store/slices/token-slice'
+import { MOCK_TOKENS } from './mock-data'
 
-// Mock token data generator
-function generateMockTokens(): Token[] {
-  const symbols = [
-    'MARIO', 'VELON', 'NVIDIA', 'HOEJAK', 'CPT', 'KIRK', 
-    'GAME4LEGS', 'brrs', 'GrokGuys', 'JLM', 'SCRAPPY', 'INVEST', 
-    'MAYHEM', 'Govslop'
-  ]
-  
-  const names = [
-    'Official Mario Coin', 'Velon', 'NVIDIA MEME Token', 'Hoejak',
-    'Empulser Enterprises', 'Official Charlie Kirk Coin', 'Game4Legs',
-    'ugly phnx', 'Just a Grok Guy', 'Jesus Language Model', 'Arc Raiders Mascot',
-    "I'm Telling You Now Is The Time", 'Mayhem Mode', 'Govslop'
-  ]
+/**
+ * Fetch tokens from REST API
+ * @param category - Optional category filter
+ * @param sortBy - Optional sort criteria
+ * @returns Promise with tokens array
+ */
+export async function fetchTokens(
+  category?: string,
+  sortBy?: string
+): Promise<Token[]> {
+  try {
+    const params = new URLSearchParams()
+    if (category) params.append('category', category)
+    if (sortBy) params.append('sortBy', sortBy)
 
-  const categories: ('new-pairs' | 'final-stretch' | 'migrated')[] = [
-    'new-pairs', 'final-stretch', 'migrated'
-  ]
+    const response = await fetch(`/api/tokens?${params.toString()}`)
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch tokens')
+    }
 
-  return symbols.map((symbol, i) => ({
-    id: `token-${i}`,
-    symbol,
-    name: names[i],
-    icon: symbol.charAt(0),
-    marketCap: Math.floor(Math.random() * 5000000) + 10000,
-    price: Math.random() * 10,
-    priceChange24h: (Math.random() - 0.5) * 100,
-    volume24h: Math.floor(Math.random() * 500000),
-    liquidity: Math.floor(Math.random() * 200000),
-    timeframe: ['5s', '10h', '21s', '27s', '14h', '6h', '20s', '10s', '34s', '1m'].sort(() => Math.random() - 0.5)[0],
-    holders: Math.floor(Math.random() * 10000),
-    bondingProgress: Math.floor(Math.random() * 100),
-    category: categories[i % 3],
-    trades: Math.floor(Math.random() * 10000),
-    verified: Math.random() > 0.5,
-    risk: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)] as 'low' | 'medium' | 'high',
-  }))
+    const data = await response.json()
+    return data.tokens || []
+  } catch (error) {
+    console.error('Error fetching tokens:', error)
+    // Fallback to mock data if API fails
+    return getMockTokensAsReduxFormat()
+  }
 }
 
-let mockTokens = generateMockTokens()
+/**
+ * Fetch a single token by ID
+ * @param id - Token ID
+ * @returns Promise with token
+ */
+export async function fetchTokenById(id: string): Promise<Token | null> {
+  try {
+    const response = await fetch(`/api/tokens/${id}`)
+    
+    if (!response.ok) {
+      return null
+    }
 
-export async function fetchTokens(): Promise<Token[]> {
-  // Simulate API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockTokens)
-    }, 500)
-  })
+    const data = await response.json()
+    return data.token ? convertToReduxToken(data.token) : null
+  } catch (error) {
+    console.error('Error fetching token:', error)
+    return null
+  }
 }
 
+/**
+ * Subscribe to real-time token price updates
+ * Uses polling to simulate WebSocket behavior
+ * @param callback - Function called with updated token
+ * @returns Unsubscribe function
+ */
 export function subscribeToTokenUpdates(
-  callback: (token: Token) => void
+  callback: (token: { id: string; priceChange: number }) => void
 ): () => void {
-  const interval = setInterval(() => {
-    const randomIndex = Math.floor(Math.random() * mockTokens.length)
-    const token = mockTokens[randomIndex]
-    
-    // Simulate price update
-    const newPrice = token.price * (1 + (Math.random() - 0.5) * 0.1)
-    const priceChange = ((newPrice - token.price) / token.price) * 100
-    
-    token.price = newPrice
-    token.priceChange24h += priceChange / 10
-    
-    callback(token)
-  }, 2000)
+  let lastUpdate = 0
+  let isActive = true
 
-  return () => clearInterval(interval)
+  const pollUpdates = async () => {
+    if (!isActive) return
+
+    try {
+      const response = await fetch('/api/tokens/updates', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ lastUpdate }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch updates')
+      }
+
+      const data = await response.json()
+      const updates = data.updates || []
+
+      updates.forEach((update: { id: string; priceChange: number }) => {
+        callback(update)
+      })
+
+      if (updates.length > 0) {
+        lastUpdate = Date.now()
+      }
+    } catch (error) {
+      console.error('Error fetching updates:', error)
+    }
+
+    if (isActive) {
+      setTimeout(pollUpdates, 2000)
+    }
+  }
+
+  // Start polling
+  pollUpdates()
+
+  // Return unsubscribe function
+  return () => {
+    isActive = false
+  }
+}
+
+/**
+ * Convert mock data token to Redux Token format
+ */
+function convertToReduxToken(mockToken: any): Token {
+  const mcValue = parseFloat(mockToken.mc.replace(/[^0-9.]/g, '')) || 0
+  const priceValue = parseFloat(mockToken.price.replace(/[^0-9.]/g, '')) || 0
+
+  return {
+    id: mockToken.id,
+    symbol: mockToken.name,
+    name: mockToken.fullName,
+    icon: mockToken.icon,
+    marketCap: mcValue * 1000, // Convert K to actual value
+    price: priceValue / 1000, // Convert K to actual value
+    priceChange24h: mockToken.dayChange || 0,
+    volume24h: (mockToken.volume || 0) * 1000,
+    liquidity: (mockToken.lpLocked || 0) * 1000,
+    timeframe: mockToken.time,
+    holders: mockToken.holders || 0,
+    bondingProgress: 0, // Not in mock data
+    category: mockToken.category || 'new-pairs',
+    trades: mockToken.transactions || 0,
+    verified: mockToken.hasBadge || false,
+    risk: 'medium', // Default risk
+  }
+}
+
+/**
+ * Get all mock tokens in Redux format
+ */
+function getMockTokensAsReduxFormat(): Token[] {
+  const allTokens = [
+    ...MOCK_TOKENS.newPairs.map(t => ({ ...t, category: 'new-pairs' })),
+    ...MOCK_TOKENS.finalStretch.map(t => ({ ...t, category: 'final-stretch' })),
+    ...MOCK_TOKENS.migrated.map(t => ({ ...t, category: 'migrated' })),
+  ]
+
+  return allTokens.map(convertToReduxToken)
 }

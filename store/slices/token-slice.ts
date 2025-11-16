@@ -40,12 +40,19 @@ const tokenSlice = createSlice({
     },
     updateTokenPrice: (
       state,
-      action: PayloadAction<{ id: string; price: number; change: number }>
+      action: PayloadAction<{ id: string; price?: number; priceChange?: number; change?: number }>
     ) => {
       const token = state.tokens.find((t) => t.id === action.payload.id)
       if (token) {
-        token.price = action.payload.price
-        token.priceChange24h = action.payload.change
+        if (action.payload.price !== undefined) {
+          token.price = action.payload.price
+        }
+        if (action.payload.priceChange !== undefined) {
+          token.priceChange24h += action.payload.priceChange
+        }
+        if (action.payload.change !== undefined) {
+          token.priceChange24h = action.payload.change
+        }
       }
     },
     setSortBy: (
