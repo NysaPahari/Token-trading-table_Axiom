@@ -75,8 +75,9 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
   // More tokens in 2nd column can have coin graphic now
   const migratingTokens = ['velon', 'nvidia', 'hoejak', 'cpt', 'kirk', 'seahorse2', 'uscr', 'fight', 'blob', 'geometric']
   const isMigratingToken = category === 'final-stretch' && migratingTokens.includes(token.id)
-  // If token has coin graphic (isMigratingToken) AND has dynamic numbers, show migrating label
-  const hasActiveUpdates = category === 'final-stretch' && isMigratingToken && hasDynamicNumbers
+  // In 2nd column: if token has dynamic numbers, show migrating label (more labels)
+  // OR if token has coin graphic and dynamic numbers
+  const hasActiveUpdates = category === 'final-stretch' && hasDynamicNumbers
   // Coin graphic always visible for migrating tokens in 2nd column
   const showCoinGraphic = isMigratingToken
 
@@ -84,20 +85,38 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
 
   return (
     <div
-      className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-visible"
+      className="relative p-2.5 bg-[#050810] hover:bg-[#0a0e1f] transition-all duration-150 cursor-pointer overflow-visible group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Small label above the box on hover - 2nd column specific logic */}
+      {/* Label persists as long as mouse is hovering over card or label */}
       {isHovered && category === 'final-stretch' && (
         <div
-          className={`absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none rounded px-2 py-0.5 text-xs font-semibold bg-transparent border whitespace-nowrap ${
-            hasActiveUpdates
-              ? 'border-blue-400 text-blue-400'
+          className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 pointer-events-auto rounded px-2 py-0.5 text-xs font-semibold bg-transparent border whitespace-nowrap"
+          onMouseEnter={(e) => {
+            e.stopPropagation()
+            setIsHovered(true)
+          }}
+          onMouseLeave={(e) => {
+            // Only hide if mouse is truly leaving (not moving to card)
+            const relatedTarget = e.relatedTarget as HTMLElement
+            if (!relatedTarget || !relatedTarget.closest('.group')) {
+              setIsHovered(false)
+            }
+          }}
+          style={{
+            borderColor: hasActiveUpdates
+              ? '#60a5fa'
               : token.dayChange > 0 
-                ? 'border-green-400 text-green-400'
-                : 'border-red-500 text-red-500'
-          }`}
+                ? '#4ade80'
+                : '#ef4444',
+            color: hasActiveUpdates
+              ? '#60a5fa'
+              : token.dayChange > 0 
+                ? '#4ade80'
+                : '#ef4444'
+          }}
         >
           {hasActiveUpdates ? 'Migrating %' : 'Bonding %'}
         </div>
@@ -217,8 +236,22 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
         </div>
       </div>
       {/* Corner icon for final-stretch column - always visible for migrating tokens, changes on hover */}
+      {/* Hover effect persists as long as mouse is over the graphic or card */}
       {showCoinGraphic && (
-        <div className="absolute bottom-2 right-2 z-20">
+        <div 
+          className="absolute bottom-2 right-2 z-20"
+          onMouseEnter={(e) => {
+            e.stopPropagation()
+            setIsHovered(true)
+          }}
+          onMouseLeave={(e) => {
+            // Only hide if mouse is truly leaving (not moving to card)
+            const relatedTarget = e.relatedTarget as HTMLElement
+            if (!relatedTarget || !relatedTarget.closest('.group')) {
+              setIsHovered(false)
+            }
+          }}
+        >
           {!isHovered ? (
             <div className="flex items-center gap-[8px]">{/* reduced gap to match rect width */}
               <div className="w-[12px] h-[12px] rounded-full border-2 border-red-500 bg-transparent" />

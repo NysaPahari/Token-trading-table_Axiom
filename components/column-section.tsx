@@ -43,10 +43,29 @@ function ColumnSectionComponent({
 }: ColumnSectionProps) {
   const [shimmerPos, setShimmerPos] = useState(-100)
   const [updateKey, setUpdateKey] = useState(0)
+  const [shuffledTokens, setShuffledTokens] = useState<Token[]>([])
   const sortBy = useSelector((state: RootState) => state.tokens.sortBy)
   
   // Apply sorting to tokens
   const sortedTokens = useTokenSorting(tokens, sortBy)
+
+  // Live shuffling of box order within column
+  useEffect(() => {
+    // Initial shuffle
+    const shuffled = [...sortedTokens].sort(() => Math.random() - 0.5)
+    setShuffledTokens(shuffled)
+    
+    // Shuffle order every 2-4 seconds for live effect
+    const shuffleInterval = setInterval(() => {
+      setShuffledTokens(prev => {
+        // Create new shuffled array
+        const newShuffled = [...prev].sort(() => Math.random() - 0.5)
+        return newShuffled
+      })
+    }, 2000 + Math.random() * 2000) // Random between 2-4 seconds
+    
+    return () => clearInterval(shuffleInterval)
+  }, [sortedTokens])
 
   // Force re-render when tokens change (for API updates visibility) - faster
   useEffect(() => {
@@ -136,7 +155,7 @@ function ColumnSectionComponent({
           />
         )}
         <div className="space-y-0 p-3 pt-5 relative z-10" key={updateKey}>
-          {sortedTokens.map((token) => (
+          {(shuffledTokens.length > 0 ? shuffledTokens : sortedTokens).map((token) => (
             <TokenCard 
               key={`${token.id}-${updateKey}`} 
               token={token} 
