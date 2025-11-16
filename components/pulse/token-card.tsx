@@ -50,7 +50,7 @@ export const TokenCard = memo(function TokenCard({ token }: TokenCardProps) {
             <div>
               <p className="text-gray-400 mb-1">Price</p>
               <p className={`font-mono text-sm ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
-                ${token.price.toFixed(6)}
+                ${parseFloat(token.price.toString()).toFixed(4)}
               </p>
             </div>
           </div>
@@ -61,12 +61,12 @@ export const TokenCard = memo(function TokenCard({ token }: TokenCardProps) {
               <p
                 className={`font-mono ${isPositive ? 'text-green-400' : 'text-red-400'}`}
               >
-                {isPositive ? '+' : ''}{token.priceChange24h.toFixed(1)}%
+                {isPositive ? '+' : ''}{parseFloat(token.priceChange24h.toString()).toFixed(4)}%
               </p>
             </div>
             <div>
               <p className="text-gray-400 mb-1">Holders</p>
-              <p className="font-mono">{token.holders}</p>
+              <p className="font-mono">{parseFloat(token.holders.toString()).toFixed(0)}</p>
             </div>
           </div>
 

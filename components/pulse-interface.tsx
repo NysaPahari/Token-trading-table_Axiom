@@ -20,8 +20,8 @@ export function PulseInterface() {
     dispatch(setSortBy('market-cap'))
   }, [dispatch])
 
-  // Start real-time updates
-  useTokenUpdates(2000)
+  // Start real-time updates (faster for more visibility)
+  useTokenUpdates(1500)
 
   const columns = [
     { title: 'New Pairs', tokens: MOCK_TOKENS.newPairs, category: 'new-pairs' },

@@ -69,7 +69,7 @@ export const TokenModal = memo(function TokenModal({
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-[#0f1220] border border-[#2a3050] rounded-lg p-4">
               <p className="text-gray-400 text-sm mb-2">Current Price</p>
-              <p className="text-2xl font-bold">${token.price.toFixed(6)}</p>
+              <p className="text-2xl font-bold">${parseFloat(token.price.toString()).toFixed(4)}</p>
             </div>
             <div className="bg-[#0f1220] border border-[#2a3050] rounded-lg p-4">
               <p className="text-gray-400 text-sm mb-2">24h Change</p>
@@ -78,16 +78,16 @@ export const TokenModal = memo(function TokenModal({
                   isPositive ? 'text-green-400' : 'text-red-400'
                 }`}
               >
-                {isPositive ? '+' : ''}{token.priceChange24h.toFixed(2)}%
+                {isPositive ? '+' : ''}{parseFloat(token.priceChange24h.toString()).toFixed(4)}%
               </p>
             </div>
           </div>
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <StatCard label="Market Cap" value={`$${(token.marketCap / 1000).toFixed(1)}K`} />
-            <StatCard label="Volume 24h" value={`$${(token.volume24h / 1000).toFixed(1)}K`} />
-            <StatCard label="Liquidity" value={`$${(token.liquidity / 1000).toFixed(1)}K`} />
+            <StatCard label="Market Cap" value={`$${(token.marketCap / 1000).toFixed(4)}K`} />
+            <StatCard label="Volume 24h" value={`$${(token.volume24h / 1000).toFixed(4)}K`} />
+            <StatCard label="Liquidity" value={`$${(token.liquidity / 1000).toFixed(4)}K`} />
             <StatCard label="Holders" value={token.holders.toString()} />
             <StatCard label="Trades" value={token.trades.toString()} />
             <StatCard label="Bonding" value={`${token.bondingProgress}%`} />

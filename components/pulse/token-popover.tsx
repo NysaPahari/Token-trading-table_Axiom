@@ -15,11 +15,11 @@ export const TokenPopover = memo(function TokenPopover({
       <div className="space-y-2">
         <div className="flex justify-between">
           <span className="text-gray-400">Volume 24h:</span>
-          <span className="text-white">${(token.volume24h / 1000).toFixed(1)}K</span>
+          <span className="text-white">${(token.volume24h / 1000).toFixed(4)}K</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-400">Liquidity:</span>
-          <span className="text-white">${(token.liquidity / 1000).toFixed(1)}K</span>
+          <span className="text-white">${(token.liquidity / 1000).toFixed(4)}K</span>
         </div>
         <div className="flex justify-between">
           <span className="text-gray-400">Bonding Progress:</span>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, memo } from 'react'
+import { useState, useCallback, memo, useEffect, useRef } from 'react'
 import {
   getIconBorderColor,
   getHoverLabel,
@@ -8,6 +8,7 @@ import {
   getLabelValue,
   Category,
 } from '../lib/token-helpers'
+import { formatNumber, formatPercentage } from '../lib/number-format'
 
 interface TokenCardProps {
   token: {
@@ -36,9 +37,36 @@ interface TokenCardProps {
 
 function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [isUpdating, setIsUpdating] = useState(false)
+  const prevValuesRef = useRef({
+    dayChange: token.dayChange,
+    hourChange: token.hourChange,
+    minChange: token.minChange,
+  })
 
   const handleMouseEnter = useCallback(() => setIsHovered(true), [])
   const handleMouseLeave = useCallback(() => setIsHovered(false), [])
+
+  // Detect value changes and trigger animation
+  useEffect(() => {
+    const hasChanged = 
+      prevValuesRef.current.dayChange !== token.dayChange ||
+      prevValuesRef.current.hourChange !== token.hourChange ||
+      prevValuesRef.current.minChange !== token.minChange
+
+    if (hasChanged) {
+      setIsUpdating(true)
+      const timer = setTimeout(() => setIsUpdating(false), 800)
+      
+      prevValuesRef.current = {
+        dayChange: token.dayChange,
+        hourChange: token.hourChange,
+        minChange: token.minChange,
+      }
+      
+      return () => clearTimeout(timer)
+    }
+  }, [token.dayChange, token.hourChange, token.minChange])
 
   // helper functions moved to lib/token-helpers.ts
 
@@ -106,17 +134,17 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
               <span className="text-gray-400">{token.time}</span>
               <span className="w-1 h-1 rounded-full bg-yellow-400"></span>
               <span className="text-gray-500">👥</span>
-              <span className="text-green-400">{token.holders}</span>
+              <span className="text-green-400">{formatNumber(token.holders)}</span>
               <span className="w-1 h-1 rounded-full bg-red-400"></span>
               <span className="text-gray-500">Ⓣ</span>
-              <span className="text-green-400">{token.transactions}</span>
+              <span className="text-green-400">{formatNumber(token.transactions)}</span>
               <span className="text-gray-500">👁</span>
               <span className={token.visitors > 0 ? 'text-green-400' : 'text-gray-500'}>
-                {token.visitors}
+                {formatNumber(token.visitors)}
               </span>
               <span className="text-gray-500">🔐</span>
               <span className={token.lpLocked > 0 ? 'text-green-400' : 'text-gray-500'}>
-                {token.lpLocked}
+                {formatNumber(token.lpLocked)}
               </span>
               <div className="ml-auto text-right text-xs text-gray-500">
                 F ≡ {token.fee} TX {token.tx}
@@ -125,17 +153,29 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
 
             {/* Bottom row: Change percentages and button */}
             <div className="flex gap-1.5 flex-wrap items-center text-xs">
-              <span className={token.dayChange > 0 ? 'text-green-400' : 'text-red-500'}>
-                {token.dayChange > 0 ? '▲' : '▼'} {Math.abs(token.dayChange)}%
+              <span 
+                className={`price-change transition-all duration-300 ${
+                  token.dayChange > 0 ? 'text-green-400' : 'text-red-500'
+                } ${isUpdating && Math.abs(token.dayChange - prevValuesRef.current.dayChange) > 0.1 ? 'price-update-' + (token.dayChange > 0 ? 'positive' : 'negative') : ''}`}
+              >
+                {token.dayChange > 0 ? '▲' : '▼'} {formatPercentage(Math.abs(token.dayChange))}%
               </span>
-              <span className={token.hourChange > 0 ? 'text-green-400' : 'text-red-500'}>
-                {token.hourChange > 0 ? '▲' : '▼'} {Math.abs(token.hourChange)}%
+              <span 
+                className={`price-change transition-all duration-300 ${
+                  token.hourChange > 0 ? 'text-green-400' : 'text-red-500'
+                } ${isUpdating && Math.abs(token.hourChange - prevValuesRef.current.hourChange) > 0.1 ? 'price-update-' + (token.hourChange > 0 ? 'positive' : 'negative') : ''}`}
+              >
+                {token.hourChange > 0 ? '▲' : '▼'} {formatPercentage(Math.abs(token.hourChange))}%
               </span>
-              <span className={token.minChange > 0 ? 'text-green-400' : 'text-red-500'}>
-                {token.minChange > 0 ? '▲' : '▼'} {Math.abs(token.minChange)}%
+              <span 
+                className={`price-change transition-all duration-300 ${
+                  token.minChange > 0 ? 'text-green-400' : 'text-red-500'
+                } ${isUpdating && Math.abs(token.minChange - prevValuesRef.current.minChange) > 0.1 ? 'price-update-' + (token.minChange > 0 ? 'positive' : 'negative') : ''}`}
+              >
+                {token.minChange > 0 ? '▲' : '▼'} {formatPercentage(Math.abs(token.minChange))}%
               </span>
-              <span className={token.volume > 0 ? 'text-green-400' : 'text-gray-500'}>
-                {token.volume > 0 ? '📊' : '○'} {token.volume}%
+              <span className={`price-change transition-all duration-300 ${token.volume > 0 ? 'text-green-400' : 'text-gray-500'}`}>
+                {token.volume > 0 ? '📊' : '○'} {formatPercentage(token.volume)}%
               </span>
 
               {(token.hasBadge || category === 'migrated' || category === 'new-pairs') && (

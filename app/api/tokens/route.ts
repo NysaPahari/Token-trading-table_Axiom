@@ -18,13 +18,18 @@ export async function GET(request: Request) {
         if (category) params.append('category', category)
         if (sortBy) params.append('sortBy', sortBy)
 
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeout)
+        
         const response = await fetch(
           `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.tokens}?${params}`,
           {
             headers: API_CONFIG.headers,
-            signal: AbortSignal.timeout(API_CONFIG.timeout),
+            signal: controller.signal,
           }
         )
+        
+        clearTimeout(timeoutId)
 
         if (response.ok) {
           const data = await response.json()

@@ -12,15 +12,20 @@ export async function POST(request: Request) {
     // If API_URL is set, proxy to real API
     if (!API_CONFIG.useMockData && API_CONFIG.baseUrl) {
       try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.timeout)
+        
         const response = await fetch(
           `${API_CONFIG.baseUrl}${API_CONFIG.endpoints.updates}`,
           {
             method: 'POST',
             headers: API_CONFIG.headers,
             body: JSON.stringify({ lastUpdate }),
-            signal: AbortSignal.timeout(API_CONFIG.timeout),
+            signal: controller.signal,
           }
         )
+        
+        clearTimeout(timeoutId)
 
         if (response.ok) {
           const data = await response.json()
@@ -59,13 +64,18 @@ function generatePriceUpdates(lastUpdate: number) {
   const updates = []
   const now = Date.now()
   
-  // Only return updates if enough time has passed (simulate real-time)
-  if (!lastUpdate || now - lastUpdate > 1000) {
-    const randomCount = Math.floor(Math.random() * 3) + 1
+  // Return updates more frequently and with more tokens
+  if (!lastUpdate || now - lastUpdate > 500) {
+    // Update 3-6 tokens per request (more visible)
+    const randomCount = Math.floor(Math.random() * 4) + 3
     
-    for (let i = 0; i < randomCount; i++) {
-      const tokenId = tokenIds[Math.floor(Math.random() * tokenIds.length)]
-      const priceChange = (Math.random() - 0.5) * 10 // -5% to +5%
+    // Get unique random tokens
+    const shuffled = [...tokenIds].sort(() => Math.random() - 0.5)
+    const selectedTokens = shuffled.slice(0, randomCount)
+    
+    for (const tokenId of selectedTokens) {
+      // Larger price changes for more visibility (-8% to +8%)
+      const priceChange = parseFloat(((Math.random() - 0.5) * 16).toFixed(4))
       
       updates.push({
         id: tokenId,

@@ -42,10 +42,19 @@ function ColumnSectionComponent({
   isGradientAnimated,
 }: ColumnSectionProps) {
   const [shimmerPos, setShimmerPos] = useState(-100)
+  const [updateKey, setUpdateKey] = useState(0)
   const sortBy = useSelector((state: RootState) => state.tokens.sortBy)
   
   // Apply sorting to tokens
   const sortedTokens = useTokenSorting(tokens, sortBy)
+
+  // Force re-render when tokens change (for API updates visibility)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setUpdateKey(prev => prev + 1)
+    }, 1500)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     if (!isGradientAnimated) return
@@ -126,9 +135,13 @@ function ColumnSectionComponent({
             }}
           />
         )}
-        <div className="space-y-0 p-3 pt-5 relative z-10">
+        <div className="space-y-0 p-3 pt-5 relative z-10" key={updateKey}>
           {sortedTokens.map((token) => (
-            <TokenCard key={token.id} token={token} category={category} />
+            <TokenCard 
+              key={`${token.id}-${updateKey}`} 
+              token={token} 
+              category={category}
+            />
           ))}
         </div>
       </div>
