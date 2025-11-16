@@ -1,31 +1,35 @@
-# Token trading table
+# Axiom Trade Pulse Replication (Solana)
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A high-fidelity, performance-optimised replication of the Axiom Trade Pulse dashboard for Solana, built with Next.js 14 and TypeScript.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/nps-projects-1dd7645b/v0-token-trading-table)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/rnbRYbmcy19)
+## 🔗 Project Links
 
-## Overview
+| Description | Link | 
+| ----- | ----- | 
+| **Original Target** | <https://axiom.trade/pulse?chain=sol> | 
+| **Replicated Site** | <https://token-trading-table-axiom.vercel.app/> | 
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+## Architectural Focus & Design Decisions
 
-## Deployment
+The core architecture is engineered for peak performance, accessibility, and maintainability, directly supporting the stringent Lighthouse and interaction speed requirements.
 
-Your project is live at:
+* **State Separation (React Query / Redux Toolkit):**
 
-**[https://vercel.com/nps-projects-1dd7645b/v0-token-trading-table](https://vercel.com/nps-projects-1dd7645b/v0-token-trading-table)**
+  * **React Query** manages all server state (data fetching, caching, real-time mock data, and synchronisation) for optimal performance.
 
-## Build your app
+  * **Redux Toolkit** is strictly reserved for complex, global client UI state (e.g., active filters or application-wide preferences).
 
-Continue building your app on:
+* **Atomic Architecture & Memoization:**
 
-**[https://v0.app/chat/rnbRYbmcy19](https://v0.app/chat/rnbRYbmcy19)**
+  * An Atomic component structure ensures maximum reusability (DRY principles).
 
-## How It Works
+  * Extensive use of `React.memo`, `useMemo`, and `useCallback` on all table components, preventing unnecessary re-renders during high-frequency real-time updates is crucial.
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
-"# Token-trading-table" 
+* **Performance Primitives:**
+
+  * Next.js 14 App Router and TypeScript (Strict) provide the foundation.
+
+  * Shadcn/Radix UI are utilised for accessible, unstyled UI primitives (Popover, Modal, Tooltip).
+
+  * Skeleton/Shimmer loading states guarantee **zero Cumulative Layout Shift (CLS)**.
+
