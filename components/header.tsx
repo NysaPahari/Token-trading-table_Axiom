@@ -47,7 +47,7 @@ function HeaderComponent() {
                   className={`text-sm font-medium px-3 py-2 rounded-lg transition-all ${
                     item === 'Pulse' 
                       ? 'text-[#667AFF]' 
-                      : 'text-white hover:text-[#667AFF] hover:bg-[#667AFF]/10'
+                      : 'text-white hover:text-[#667AFF] hover:bg-[#667AFF]/8'
                   }`}
                 >
                   {item}
