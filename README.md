@@ -1,6 +1,6 @@
-# Axiom Trade Pulse Replication (Solana)
+# Axiom Trade Pulse Replication 
 
-A high-fidelity, performance-optimised replication of the Axiom Trade Pulse dashboard for Solana, built with Next.js 14 and TypeScript.
+A high-fidelity, performance-optimised replication of the Axiom Trade Pulse Token Table
 
 ## 🔗 Project Links
 
