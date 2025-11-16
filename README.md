@@ -33,3 +33,8 @@ The core architecture is engineered for peak performance, accessibility, and mai
 
   * Skeleton/Shimmer loading states guarantee **zero Cumulative Layout Shift (CLS)**.
 
+* **Auto-Layout Snapshot:**
+
+  <img width="1764" height="948" alt="image" src="https://github.com/user-attachments/assets/eeaf0eb9-af45-4657-84db-4acfc4d1218c" />
+  
+
