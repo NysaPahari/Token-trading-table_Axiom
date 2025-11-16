@@ -64,18 +64,23 @@ function generatePriceUpdates(lastUpdate: number) {
   const updates = []
   const now = Date.now()
   
-  // Return updates more frequently and with more tokens
-  if (!lastUpdate || now - lastUpdate > 500) {
-    // Update 3-6 tokens per request (more visible)
-    const randomCount = Math.floor(Math.random() * 4) + 3
+  // Return updates very frequently for maximum visibility
+  if (!lastUpdate || now - lastUpdate > 200) {
+    // Update 5-8 tokens per request (very visible)
+    const randomCount = Math.floor(Math.random() * 4) + 5
     
-    // Get unique random tokens
-    const shuffled = [...tokenIds].sort(() => Math.random() - 0.5)
-    const selectedTokens = shuffled.slice(0, randomCount)
+    // Prioritize final-stretch tokens for visibility
+    const finalStretchIds = ['velon', 'nvidia', 'hoejak', 'cpt', 'kirk']
+    const otherIds = tokenIds.filter(id => !finalStretchIds.includes(id))
+    
+    // Get unique random tokens, prioritizing final-stretch
+    const shuffledFinal = [...finalStretchIds].sort(() => Math.random() - 0.5)
+    const shuffledOther = [...otherIds].sort(() => Math.random() - 0.5)
+    const selectedTokens = [...shuffledFinal.slice(0, Math.min(3, randomCount)), ...shuffledOther.slice(0, randomCount - 3)]
     
     for (const tokenId of selectedTokens) {
-      // Larger price changes for more visibility (-8% to +8%)
-      const priceChange = parseFloat(((Math.random() - 0.5) * 16).toFixed(4))
+      // Much larger price changes for maximum visibility (-12% to +12%)
+      const priceChange = parseFloat(((Math.random() - 0.5) * 24).toFixed(4))
       
       updates.push({
         id: tokenId,

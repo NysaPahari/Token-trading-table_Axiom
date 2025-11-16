@@ -38,6 +38,7 @@ interface TokenCardProps {
 function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [hasDynamicNumbers, setHasDynamicNumbers] = useState(false)
   const prevValuesRef = useRef({
     dayChange: token.dayChange,
     hourChange: token.hourChange,
@@ -56,7 +57,8 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
 
     if (hasChanged) {
       setIsUpdating(true)
-      const timer = setTimeout(() => setIsUpdating(false), 800)
+      setHasDynamicNumbers(true)
+      const timer = setTimeout(() => setIsUpdating(false), 600)
       
       prevValuesRef.current = {
         dayChange: token.dayChange,
@@ -67,6 +69,10 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
       return () => clearTimeout(timer)
     }
   }, [token.dayChange, token.hourChange, token.minChange])
+
+  // Check if token has dynamic numbers (for 2nd column label display)
+  const hasActiveUpdates = category === 'final-stretch' && hasDynamicNumbers
+  const showCoinGraphic = category === 'final-stretch' && hasActiveUpdates
 
   // helper functions moved to lib/token-helpers.ts
 
@@ -80,18 +86,24 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
       {isHovered && (
         <div
           className={`absolute -top-6 left-1/2 transform -translate-x-1/2 z-50 pointer-events-none rounded px-2 py-0.5 text-xs font-semibold bg-transparent border whitespace-nowrap ${
-            category === 'final-stretch'
-              ? 'border-green-400 text-green-400'
+            category === 'final-stretch' && hasActiveUpdates
+              ? 'border-blue-400 text-blue-400'
               : category === 'migrated'
               ? 'border-white/20 text-white opacity-90'
-              : 'border-red-500 text-red-500'
+              : category === 'new-pairs'
+              ? token.dayChange > 0 
+                ? 'border-green-400 text-green-400'
+                : 'border-red-500 text-red-500'
+              : 'border-gray-400 text-gray-400'
           }`}
         >
-          {category === 'final-stretch'
+          {category === 'final-stretch' && hasActiveUpdates
             ? 'Migrating %'
             : category === 'migrated'
             ? 'Virtual Curve'
-            : 'Bonding %'}
+            : category === 'new-pairs'
+            ? 'Bonding %'
+            : ''}
         </div>
       )}
 
@@ -188,8 +200,8 @@ function TokenCardComponent({ token, category = 'new-pairs' }: TokenCardProps) {
           </div>
         </div>
       </div>
-      {/* Corner icon for final-stretch column (pic1 -> pic2 on hover) */}
-      {category === 'final-stretch' && (
+      {/* Corner icon for final-stretch column - only show if has migrating label */}
+      {showCoinGraphic && (
         <div className="absolute bottom-2 right-2 z-20">
           {!isHovered ? (
             <div className="flex items-center gap-[8px]">{/* reduced gap to match rect width */}

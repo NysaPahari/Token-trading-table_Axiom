@@ -48,11 +48,11 @@ function ColumnSectionComponent({
   // Apply sorting to tokens
   const sortedTokens = useTokenSorting(tokens, sortBy)
 
-  // Force re-render when tokens change (for API updates visibility)
+  // Force re-render when tokens change (for API updates visibility) - faster
   useEffect(() => {
     const interval = setInterval(() => {
       setUpdateKey(prev => prev + 1)
-    }, 1500)
+    }, 500)
     return () => clearInterval(interval)
   }, [])
 

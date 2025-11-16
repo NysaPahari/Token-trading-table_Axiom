@@ -14,7 +14,7 @@ interface PriceUpdate {
  * Custom hook for real-time token price updates
  * Polls the API for price updates and updates both Redux and mock data
  */
-export function useTokenUpdates(interval: number = 1500) {
+export function useTokenUpdates(interval: number = 500) {
   const dispatch = useDispatch<AppDispatch>()
   const lastUpdateRef = useRef<number>(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -67,16 +67,25 @@ export function useTokenUpdates(interval: number = 1500) {
       }
     }
 
-    // Initial fetch
+    // Initial fetch immediately
     fetchUpdates()
 
-    // Set up polling interval
+    // Set up polling interval - very fast for maximum visibility
     intervalRef.current = setInterval(fetchUpdates, interval)
+    
+    // Force multiple rapid updates in first 10 seconds for visibility
+    const rapidUpdates = setInterval(() => {
+      fetchUpdates()
+    }, 300)
+    
+    const rapidTimeout = setTimeout(() => clearInterval(rapidUpdates), 10000)
 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
       }
+      clearInterval(rapidUpdates)
+      clearTimeout(rapidTimeout)
     }
   }, [dispatch, interval])
 }
